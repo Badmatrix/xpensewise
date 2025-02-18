@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import TransactionHeader from "./TransactionHeader";
 import TransactionTable from "./TransactionTable";
 import TableLoading from "./TableLoading";
-import { Button } from "@/components/ui/button";
 import Header from "./Header";
 import { getTransactions } from "@/service/apiUser";
 import EmptyTransactions from "./EmptyTransactions";
@@ -15,7 +14,7 @@ async function page({
 }) {
   const transactions = await getTransactions();
 
-  const filter = searchParams?.categories || "all-transactions";
+  const filter = searchParams.categories || "all-transactions";
   const sort = searchParams?.sortBy || "latest";
   const search = searchParams?.search || "";
 

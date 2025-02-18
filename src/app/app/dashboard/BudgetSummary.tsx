@@ -6,7 +6,6 @@ import { getTotal } from "@/lib/helper";
 import { IoMdArrowDropright } from "react-icons/io";
 import Link from "next/link";
 import ChartSummaryList from "./ChartSummaryList";
-import { Transaction } from "@/types/types";
 
 async function BudgetSummary() {
   const budgets = await getBudgets();

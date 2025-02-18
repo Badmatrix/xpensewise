@@ -10,7 +10,7 @@ import { Pots } from "@/types/types";
 import { useForm } from "react-hook-form";
 import AddtoPotForm from "./AddtoPotForm";
 
-type Props = { pot: Pots; setOpen: any };
+type Props = { pot: Pots; setOpen: (open: boolean) => void };
 
 export default function AddtoPot({ pot, setOpen }: Props) {
   const { name, theme, target, total } = pot;

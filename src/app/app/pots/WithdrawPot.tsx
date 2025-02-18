@@ -22,7 +22,7 @@ export default function WithdrawPot({ pot, setOpen }: Props) {
     <DialogContent>
       <DialogHeader>
         <DialogTitle className="text-xl font-bold capitalize">
-          withdraw from '{name}'
+          withdraw from {`${name}`}
         </DialogTitle>
         <DialogDescription>
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus

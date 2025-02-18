@@ -18,8 +18,10 @@ interface IFormInput {
   theme: string;
   maximum: number;
 }
-
-export default function AddNewBudget({ setOpen }: any) {
+type Props = {
+  setOpen: (open: boolean) => void;
+};
+export default function AddNewBudget({ setOpen }: Props) {
   const {
     control,
     register,
@@ -58,7 +60,7 @@ export default function AddNewBudget({ setOpen }: any) {
               </SelectTrigger>
               <SelectContent className="capitalize">
                 {category.map((item) => (
-                  <SelectItem value={item.value} key={item.name} >
+                  <SelectItem value={item.value} key={item.name}>
                     {item.name}
                   </SelectItem>
                 ))}

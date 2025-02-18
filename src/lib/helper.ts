@@ -31,20 +31,13 @@ export function formatCurrency(
   }
 }
 
-// export const sumAmounts = (data: Transaction[]): number => {
-//   return data.reduce((total, item) => total + (item.amount ?? 0), 0);
-// };
-// export const totalMaxBudget = (data: Budgets[]): number => {
-//   return data.reduce((total, item) => total + (item.maximum ?? 0), 0);
-// };
-
 export function getTotal(data: TotalProps[]) {
   return data.reduce(
     (total, item) => total + (item.amount ?? item.maximum ?? item.total ?? 0),
     0,
   );
 }
-export async function getBudgetCategories(array: any[]) {
-  const data = array.map((item) => item.category);
-  return data;
-}
+// export async function getBudgetCategories(array: any[]) {
+//   const data = array.map((item) => item.category);
+//   return data;
+// }

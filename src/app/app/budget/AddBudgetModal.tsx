@@ -5,8 +5,10 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import AddNewBudget from "./AddNewBudget";
-
-function AddBudgetModal({ setOpen }: any) {
+type Props = {
+  setOpen: (open: boolean) => void;
+};
+function AddBudgetModal({ setOpen }: Props) {
   return (
     <DialogContent>
       <DialogHeader>

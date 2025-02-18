@@ -1,7 +1,6 @@
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { TableBody, TableRow, TableCell } from "./ui/table";
 import { formatCurrency, formatDateFromTimestamp } from "@/lib/helper";
-import { AvatarImage } from "./ui/avatar";
 
 interface Transactions {
   id: string;
@@ -31,7 +30,7 @@ function TransactionTableItems({ transactions }: componentProps) {
             {formatDateFromTimestamp(transaction.created_at)}
           </TableCell>
           <TableCell
-            className={`${transaction.amount > 0 ? "text-secondary-green" : ""}`}
+            className={`${transaction.amount > 0 ? "text-secondary-green" : "text-secondary-red"}`}
           >
             {" "}
             {formatCurrency(transaction.amount)}

@@ -11,7 +11,7 @@ import { Budgets } from "@/types/types";
 import { useTransition } from "react";
 type Props = {
   budget: Budgets;
-  setOpen: any;
+  setOpen: (open: boolean) => void;
 };
 function DeleteBudget({ budget, setOpen }: Props) {
   const [isPending, startTransition] = useTransition();

@@ -3,27 +3,28 @@ export type Metadata = {
   description: string;
 };
 export type Transaction = {
-  id: number;
-  budgetID?: number;
+  id?: number;
   created_at: string;
   name: string;
-  avatar?: string;
   category: string;
+  avatar?: string;
   amount: number;
+  recurring?: string;
 };
 export interface Budgets {
-  id: number;
+  id?: number;
+  created_at?: string;
   category: string;
   theme: string;
   maximum: number;
-  created_at?: string;
 }
 export interface Pots {
-  id: number;
-  name: string;
+  id?: number;
+  created_at?: string;
   target: number;
-  total: number;
   theme: string;
+  name: string;
+  total: number;
 }
 export interface TotalProps {
   amount?: number;

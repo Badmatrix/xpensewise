@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   pot: Pots;
-  setOpen:any
+  setOpen: any;
 };
 
 function EditpotForm({ pot, setOpen }: Props) {
@@ -41,10 +41,9 @@ function EditpotForm({ pot, setOpen }: Props) {
       ...data,
       target: Number(data.target),
     });
-    if (isSubmitSuccessful) {
-      reset();
-      setOpen(false);
-    }
+
+    await setOpen(false);
+    reset();
   };
 
   return (

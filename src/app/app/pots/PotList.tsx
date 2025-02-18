@@ -1,8 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardHeader,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -20,9 +16,9 @@ type Props = {
 function PotList({ pot }: Props) {
   const { name, theme, total, target } = pot;
   const val = Math.ceil((total / target) * 100);
-  
+
   return (
-    <Card>
+    <Card className="border-0">
       <CardHeader>
         <div className="flex justify-between capitalize">
           <h1 className="flex items-center gap-3">
@@ -58,7 +54,7 @@ function PotList({ pot }: Props) {
           </div>
         </div>
       </CardContent>
-      <PotListButtons pot={pot}/>
+      <PotListButtons pot={pot} />
     </Card>
   );
 }

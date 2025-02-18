@@ -11,21 +11,21 @@ import { Pots } from "@/types/types";
 import { useTransition } from "react";
 type Props = {
   pot: Pots;
-  setOpen: any;
+  setOpen: (open: boolean) => void;
 };
 function DeletePot({ pot, setOpen }: Props) {
   const [isPending, startTransition] = useTransition();
   function handleDelete() {
     startTransition(async () => {
       await deletePotAction(pot.id);
-      await setOpen(false);
+      setOpen(false);
     });
   }
   return (
     <DialogContent>
       <DialogHeader>
         <DialogTitle className="text-xl font-bold capitalize">
-          Delete '{pot.name}'
+          Delete {`${pot.name}`}
         </DialogTitle>
 
         <DialogDescription>

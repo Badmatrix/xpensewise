@@ -5,11 +5,10 @@ import { Label } from "@/components/ui/label";
 import { updatePotsAction } from "@/lib/Actions";
 import { Pots } from "@/types/types";
 import { DollarSign } from "lucide-react";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 type Props = {
   pot: Pots;
-  setOpen: any;
+  setOpen: (open: boolean) => void;
   form: any;
 };
 
@@ -23,13 +22,14 @@ function WithdrawalForm({ pot, setOpen, form }: Props) {
   } = form;
 
   const onSubmit: SubmitHandler<Pots> = async (data) => {
+    if (data.total > total) return;
     await updatePotsAction({
       ...data,
       total: Number(total - data.total),
     });
 
     reset();
-    await setOpen(false);
+    setOpen(false);
     // }
   };
 

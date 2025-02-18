@@ -2,19 +2,17 @@
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Plus } from "lucide-react";
 import AddBudgetModal from "./AddBudgetModal";
-import { useState, useTransition } from "react";
-import { addMultipleBudget } from "@/lib/Actions";
-import { allBudgets } from "../nav";
+import { useState } from "react";
 // import { Button } from "@/components/ui/button";
 
 function BudgetHeader() {
   const [open, setOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
-  function handleAdd() {
-    startTransition(async () => {
-      await addMultipleBudget(allBudgets);
-    });
-  }
+  // const [isPending, startTransition] = useTransition();
+  // function handleAdd() {
+  //   startTransition(async () => {
+  //     await addMultipleBudget(allBudgets);
+  //   });
+  // }
   return (
     <header className="flex items-center justify-between">
       <h1 className="text-2xl font-bold capitalize">budget</h1>

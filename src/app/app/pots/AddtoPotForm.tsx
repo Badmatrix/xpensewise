@@ -6,10 +6,10 @@ import { Pots } from "@/types/types";
 import { DollarSign } from "lucide-react";
 import { SubmitHandler } from "react-hook-form";
 
-type Props = { pot: Pots; form: any; setOpen: any };
+type Props = { pot: Pots; form: any; setOpen: (open: boolean) => void };
 
 export default function AddtoPotForm({ pot, form, setOpen }: Props) {
-  const { total } = pot;
+  const { total, target } = pot;
   const {
     handleSubmit,
     register,
@@ -17,6 +17,7 @@ export default function AddtoPotForm({ pot, form, setOpen }: Props) {
     formState: { errors },
   } = form;
   const onSubmit: SubmitHandler<Pots> = async (data) => {
+    if (data.total > target - total) return;
     await updatePotsAction({
       ...data,
       total: total + Number(data.total),
@@ -46,7 +47,10 @@ export default function AddtoPotForm({ pot, form, setOpen }: Props) {
           required
           {...register("total", {
             required: "field is required",
-
+            max: {
+              value: target - total,
+              message: "increase your target to add more",
+            },
             min: { value: 1, message: "increase your savings" },
           })}
         />

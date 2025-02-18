@@ -8,13 +8,17 @@ const tableHeader = [
   "transaction date",
   "amount",
 ];
+type Props = { filter: string; sort: string; search: string };
 async function TransactionTable({ filter, sort, search }: any) {
   const transactions = await getTransactions();
 
   const filteredTransactions =
     filter === "all-transactions"
       ? transactions
-      : transactions.filter((tx) => tx.category === filter);
+      : transactions.filter(
+          (tx) =>
+            tx.category && tx.category.toLowerCase() === filter.toLowerCase(),
+        );
 
   const sortedTransactions = [...filteredTransactions].sort((a, b) => {
     const getTime = (date: string) => new Date(date).getTime(); // Ensure number output

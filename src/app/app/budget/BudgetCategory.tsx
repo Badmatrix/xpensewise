@@ -5,11 +5,12 @@ import { Ellipsis } from "lucide-react";
 import BudgetBalance from "./BudgetBalance";
 import ProgressCard from "./ProgressCard";
 import CategoryCard from "./CategoryCard";
+
+import { BudgetDropdown } from "./BudgetDropdown";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
-} from "@radix-ui/react-dropdown-menu";
-import { BudgetDropdown } from "./BudgetDropdown";
+} from "@/components/ui/dropdown-menu";
 
 interface BudgetProps {
   id: number;
@@ -27,7 +28,7 @@ async function BudgetCategory({ budget }: Props) {
   const { category, theme, maximum } = budget;
 
   return (
-    <Card className="pb-7 pt-2">
+    <Card className="border-0 pb-7 pt-2">
       <CardHeader className="">
         <div className="flex justify-between">
           <h1 className="flex items-center gap-3 text-lg font-semibold capitalize">

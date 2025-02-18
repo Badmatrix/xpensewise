@@ -15,7 +15,7 @@ import { updateBudgetAction } from "@/lib/Actions";
 
 type Props = {
   budget: Budgets;
-  setOpen: any;
+  setOpen: (open: boolean) => void;
 };
 
 interface IFormInput {

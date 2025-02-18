@@ -1,9 +1,10 @@
 "use server";
 
 import { supabase } from "@/service/supabase";
+import { Budgets, Pots, Transaction } from "@/types/types";
 import { revalidatePath } from "next/cache";
 
-export async function updateBudgetAction(formData: any) {
+export async function updateBudgetAction(formData: Budgets) {
   const { error } = await supabase
     .from("budgets")
     .update({ ...formData })
@@ -18,7 +19,7 @@ export async function updateBudgetAction(formData: any) {
   // console.log(formData);
 }
 
-export async function AddBudgetAction(formData: any) {
+export async function AddBudgetAction(formData: Budgets) {
   const { error } = await supabase.from("budgets").insert([formData]);
 
   if (error) {
@@ -37,7 +38,7 @@ export async function deleteBudgetAction(budgetID: number) {
   revalidatePath("/app/budget");
   // console.log(budgetID);
 }
-export async function updatePotsAction(formData: any) {
+export async function updatePotsAction(formData: Pots) {
   const { error } = await supabase
     .from("pots")
     .update({ ...formData })
@@ -51,7 +52,7 @@ export async function updatePotsAction(formData: any) {
 
   // console.log(formData);
 }
-export async function AddNewPotAction(formData: any) {
+export async function AddNewPotAction(formData: Pots) {
   const { error } = await supabase.from("pots").insert([formData]);
 
   if (error) {
@@ -71,7 +72,7 @@ export async function deletePotAction(potID: number) {
   // console.log(budgetID);
 }
 
-export async function addMultipleTransactions(array: any[]) {
+export async function addMultipleTransactions(array: Transaction[]) {
   const { data, error } = await supabase
     .from("transactions")
     .insert(array)
@@ -84,7 +85,7 @@ export async function addMultipleTransactions(array: any[]) {
   return data;
 
 }
-export async function addMultiplePots(array: any[]) {
+export async function addMultiplePots(array: Pots[]) {
   const { data, error } = await supabase
     .from("pots")
     .insert(array)
@@ -96,7 +97,7 @@ export async function addMultiplePots(array: any[]) {
   revalidatePath("/app/pots");
   return data;
 }
-export async function addMultipleBudget(array: any[]) {
+export async function addMultipleBudget(array: Budgets[]) {
   const { data, error } = await supabase
     .from("budgets")
     .insert(array)

@@ -10,7 +10,7 @@ import AddNewPotForm from "./AddNewPotForm";
 
 type Props = {
   pot?: Pots;
-  setOpen?: any;
+  setOpen: (open: boolean) => void;
 };
 function EditAddPotModal({ pot, setOpen }: Props) {
   return (

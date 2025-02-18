@@ -15,7 +15,7 @@ import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
 
 type Props = {
-  setOpen: any;
+  setOpen: (open: boolean) => void;
 };
 function AddNewPotForm({ setOpen }: Props) {
   const {

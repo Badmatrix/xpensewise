@@ -4,19 +4,16 @@ import { Plus } from "lucide-react";
 
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import EditAddPotModal from "./EditAddPotModal";
-import { useState, useTransition } from "react";
-import { Button } from "@/components/ui/button";
-import { addMultiplePots } from "@/lib/Actions";
-import { allPots } from "../nav";
+import { useState } from "react";
 
 function PotsHeader() {
   const [open, setOpen] = useState(false);
- const [isPending, startTransition] = useTransition();
- function handleAdd() {
-   startTransition(async () => {
-     await addMultiplePots(allPots);
-   });
- }
+//  const [isPending, startTransition] = useTransition();
+//  function handleAdd() {
+//    startTransition(async () => {
+//      await addMultiplePots(allPots);
+//    });
+//  }
 
   return (
     <header className="flex items-center justify-between">

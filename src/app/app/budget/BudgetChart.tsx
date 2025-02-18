@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { getTransactionByCategory, getTransactions } from "@/service/apiUser";
+import { getTransactionByCategory } from "@/service/apiUser";
 import { Budgets, Transaction } from "@/types/types";
 import ChartSummaryList from "./ChartSummaryList";
 import Chart from "./Chart";
@@ -12,7 +12,7 @@ async function BudgetChart({ budgets }: Props) {
   const res = await Promise.all(
     budgets.map((item) => getTransactionByCategory(item.category)),
   );
-  
+
   const transactions: Transaction[] = res.flat();
   const allTransactions = Math.abs(
     transactions.reduce((total, item) => {
@@ -29,7 +29,7 @@ async function BudgetChart({ budgets }: Props) {
   );
   return (
     <section>
-      <Card className="w-full p-0 md:p-4">
+      <Card className="w-full p-0 md:p-4 border-0">
         <Chart budgets={budgets} total={allTransactions} />
         <div className="px-2">
           <header>
