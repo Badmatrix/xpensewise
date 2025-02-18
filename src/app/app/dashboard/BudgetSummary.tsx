@@ -6,6 +6,7 @@ import { getTotal } from "@/lib/helper";
 import { IoMdArrowDropright } from "react-icons/io";
 import Link from "next/link";
 import ChartSummaryList from "./ChartSummaryList";
+import { Transaction } from "@/types/types";
 
 async function BudgetSummary() {
   const budgets = await getBudgets();
@@ -13,16 +14,18 @@ async function BudgetSummary() {
   const allTransactions = getTotal(transactions);
   const display = budgets.slice(0, 4);
 
-  const groupedSum = transactions.reduce(
+  const groupedSum: Record<string, number> = transactions.reduce(
     (acc, item) => {
-      acc[item.category] = (acc[item.category] || 0) + item.amount;
+      acc[item.category] = (acc[item.category] || 0) + (item.amount ?? 0);
       return acc;
     },
     {} as Record<string, number>,
   );
 
   return (
-    <Card className="border-0 lg:row-span-2">
+    <Card
+      className={`border-0 lg:row-span-2 ${!budgets.length ? "hidden" : "block"}`}
+    >
       <CardHeader>
         <CardTitle className="flex justify-between capitalize text-grey-900">
           <h3 className="text-lg font-semibold"> budgets</h3>
@@ -41,7 +44,7 @@ async function BudgetSummary() {
           </CardContent>
         </Card>
 
-        <ul className="mb-3 flex flex-wrap items-center space-y-2 md:flex-col md:items-start mx-2">
+        <ul className="mx-2 mb-3 flex flex-wrap items-center space-y-2 md:flex-col md:items-start">
           {display.map((item) => (
             <ChartSummaryList
               item={item}

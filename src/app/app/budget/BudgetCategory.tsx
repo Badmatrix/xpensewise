@@ -1,15 +1,15 @@
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardDescription } from "@/components/ui/card";
 import { formatCurrency, getTotal } from "@/lib/helper";
 import { getTransactionByCategory } from "@/service/apiUser";
 import { Ellipsis } from "lucide-react";
 import BudgetBalance from "./BudgetBalance";
 import ProgressCard from "./ProgressCard";
 import CategoryCard from "./CategoryCard";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@radix-ui/react-dropdown-menu";
+import { BudgetDropdown } from "./BudgetDropdown";
 
 interface BudgetProps {
   id: number;
@@ -25,6 +25,7 @@ async function BudgetCategory({ budget }: Props) {
   const data = await getTransactionByCategory(budget.category);
   const totalAmounts = getTotal(data);
   const { category, theme, maximum } = budget;
+
   return (
     <Card className="pb-7 pt-2">
       <CardHeader className="">
@@ -36,7 +37,12 @@ async function BudgetCategory({ budget }: Props) {
             ></span>
             {category}
           </h1>
-          <Ellipsis className="cursor-pointer text-sm text-grey-300" />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Ellipsis className="cursor-pointer text-sm text-grey-300" />
+            </DropdownMenuTrigger>
+            <BudgetDropdown budget={budget} />
+          </DropdownMenu>
         </div>
 
         <CardDescription className="first-letter:capitalize">

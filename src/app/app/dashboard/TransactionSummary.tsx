@@ -1,11 +1,16 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { IoMdArrowDropright } from "react-icons/io";
 import TransactionTableSummary from "./TransactionTableSummary";
+import { getTransactions } from "@/service/apiUser";
 
-function TransactionSummary() {
+async function TransactionSummary() {
+  const data = await getTransactions();
+
   return (
-    <Card className=" border-0 lg:row-span-4">
+    <Card
+      className={`border-0 lg:row-span-4 ${!data.length ? "hidden" : "block"}`}
+    >
       <CardHeader>
         <CardTitle className="flex justify-between capitalize text-grey-900">
           <h3 className="text-lg font-semibold"> transactions</h3>
@@ -17,9 +22,9 @@ function TransactionSummary() {
           </button>
         </CardTitle>
       </CardHeader>
-      <TransactionTableSummary/>
+      <TransactionTableSummary data={data} />
     </Card>
   );
 }
 
-export default TransactionSummary
+export default TransactionSummary;

@@ -1,29 +1,30 @@
 import BudgetsCategories from "./BudgetsCategories";
 import BudgetLoading from "./BudgetLoading";
-import { Button } from "@/components/ui/button";
 import { getBudgets } from "@/service/apiUser";
 import { Suspense } from "react";
-import { Plus } from "lucide-react";
+
 import BudgetChart from "./BudgetChart";
+import BudgetHeader from "./BudgetHeader";
+import EmptyBudget from "./EmptyBudget";
 
 async function page() {
   const budgets = await getBudgets();
+  // console.log(budgets);
 
   return (
     <div className="w-full space-y-4">
-      <header className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold capitalize">budget</h1>
-        <Button className="bg-grey-900 flex items-center text-xs font-semibold capitalize tracking-wide text-white">
-          <Plus className="text-white" /> <span>add new budget</span>
-        </Button>
-      </header>
+      <BudgetHeader />
 
-      <Suspense fallback={<BudgetLoading />}>
-        <main className="grid gap-10 md:grid-cols-2">
-          <BudgetChart budgets={budgets} />
-          <BudgetsCategories budgets={budgets} />
-        </main>
-      </Suspense>
+      {!budgets.length ? (
+        <EmptyBudget/>
+      ) : (
+        <Suspense fallback={<BudgetLoading />}>
+          <main className="grid gap-10 md:grid-cols-2">
+            <BudgetChart budgets={budgets} />
+            <BudgetsCategories budgets={budgets} />
+          </main>
+        </Suspense>
+      )}
     </div>
   );
 }

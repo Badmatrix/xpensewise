@@ -1,43 +1,52 @@
 import { Card } from "@/components/ui/card";
-import { getTransactions } from "@/service/apiUser";
-import { Budgets } from "@/types/types";
+import { getTransactionByCategory, getTransactions } from "@/service/apiUser";
+import { Budgets, Transaction } from "@/types/types";
 import ChartSummaryList from "./ChartSummaryList";
 import Chart from "./Chart";
-import { getTotal } from "@/lib/helper";
 
-type ComponentProps = {
+type Props = {
   budgets: Budgets[];
 };
 
-async function BudgetChart({ budgets }: ComponentProps) {
-  const transactions = await getTransactions();
-  const allTransactions = getTotal(transactions);
-  const groupedSum = transactions.reduce(
+async function BudgetChart({ budgets }: Props) {
+  const res = await Promise.all(
+    budgets.map((item) => getTransactionByCategory(item.category)),
+  );
+  
+  const transactions: Transaction[] = res.flat();
+  const allTransactions = Math.abs(
+    transactions.reduce((total, item) => {
+      return item.amount < 0 ? total + item.amount : total;
+    }, 0),
+  );
+
+  const groupedSum: Record<string, number> = transactions.reduce(
     (acc, item) => {
       acc[item.category] = (acc[item.category] || 0) + item.amount;
       return acc;
     },
     {} as Record<string, number>,
   );
-
   return (
     <section>
-      <Card className="w-full p-4">
+      <Card className="w-full p-0 md:p-4">
         <Chart budgets={budgets} total={allTransactions} />
-        <header>
-          <h1 className="text-xl font-semibold capitalize text-grey-900">
-            spending summary
-          </h1>
-        </header>
-        <ul className="mt-3">
-          {budgets.map((item) => (
-            <ChartSummaryList
-              item={item}
-              key={item.id}
-              groupedSum={groupedSum}
-            />
-          ))}
-        </ul>
+        <div className="px-2">
+          <header>
+            <h1 className="text-xl font-semibold capitalize text-grey-900">
+              spending summary
+            </h1>
+          </header>
+          <ul className="mt-3">
+            {budgets.map((item) => (
+              <ChartSummaryList
+                item={item}
+                key={item.id}
+                groupedSum={groupedSum}
+              />
+            ))}
+          </ul>
+        </div>
       </Card>
     </section>
   );

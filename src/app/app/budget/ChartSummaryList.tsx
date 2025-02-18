@@ -4,7 +4,7 @@ import React from "react";
 
 type Props = {
   item: Budgets;
-  groupedSum: unknown;
+  groupedSum: Record<string, number>;
 };
 function ChartSummaryList({ item, groupedSum }: Props) {
   const { theme, category } = item;
@@ -18,7 +18,7 @@ function ChartSummaryList({ item, groupedSum }: Props) {
         <span>{item.category}</span>
         <div className="inline-flex gap-1">
           <span className="text-sm font-semibold lowercase text-grey-900">
-            {formatCurrency(groupedSum[category])}
+            {formatCurrency(Math.abs(groupedSum[category] ?? 0))}
           </span>
           <span className="text-[10px]">of {formatCurrency(item.maximum)}</span>
         </div>

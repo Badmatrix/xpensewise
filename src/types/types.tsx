@@ -25,8 +25,8 @@ export interface Pots {
   total: number;
   theme: string;
 }
-export interface TotalProps{
-  amount?:number
-  maximum?:number
-  total?:number
+export interface TotalProps {
+  amount?: number;
+  maximum?: number;
+  total?: number;
 }

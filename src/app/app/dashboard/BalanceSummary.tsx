@@ -1,33 +1,47 @@
 import { Card } from "@/components/ui/card";
+import { formatCurrency, getTotal } from "@/lib/helper";
+import { getTransactions } from "@/service/apiUser";
 
-function BalanceSummary() {
+async function BalanceSummary() {
+  const transactions = await getTransactions();
+
+  const currBalance = getTotal(transactions);
+  const income = transactions.reduce((total, item) => {
+    return item.amount > 0 ? total + item.amount : total;
+  }, 0);
+  const expense = Math.abs(
+    transactions.reduce((total, item) => {
+      return item.amount < 0 ? total + item.amount : total;
+    }, 0),
+  );
+
+  const balance = [
+    {
+      title: "current balance",
+      amount: currBalance,
+      style: "bg-grey-900 text-white",
+    },
+    { title: "income", amount: income, style: " text-grey-900" },
+    { title: "expenses", amount: expense },
+  ];
+
   return (
-    <div className="grid grid-flow-row gap-3 md:grid-flow-col md:gap-5">
-      <Card></Card>
-      <Card></Card>
-      <Card></Card>
+    <div className="">
+      <ul className="grid grid-flow-row gap-3 md:grid-flow-col md:gap-5">
+        {balance.map((item) => (
+          <Card
+            key={item.title}
+            className={`${item.style} space-y-3 border-0 px-5 py-7`}
+          >
+            <div className="text-sm font-light capitalize">{item.title}</div>
+            <div className="text-xl font-bold tracking-wider">
+              {formatCurrency(item.amount)}
+            </div>
+          </Card>
+        ))}
+      </ul>
     </div>
   );
 }
 
 export default BalanceSummary;
-
-// import SummaryCard from "./SummaryCard";
-
-// const balance = [
-//   { title: "current balance", amount: 9000, style: "bg-grey-900 text-white" },
-//   { title: "income", amount: 10000 },
-//   { title: "expenses", amount: 10000 },
-// ];
-
-// function SummaryList() {
-//   return (
-//     <ul className="grid grid-flow-row gap-3 md:grid-flow-col md:gap-5">
-//       {balance.map((item) => (
-//         <SummaryCard key={item.title} title={item.title} className={item.style}>
-//           <h1 className="text-2xl font-bold">{item.amount}</h1>
-//         </SummaryCard>
-//       ))}
-//     </ul>
-//   );
-// }

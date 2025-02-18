@@ -5,7 +5,7 @@ import { ReceiptText } from "lucide-react";
 
 async function Summary() {
   const bills = await getRecuringBills();
-  const total = getTotal(bills);
+  const total = Math.abs(getTotal(bills));
   return (
     <div className="space-y-5 col-span-1">
       <Card className="bg-grey-900 text-white">

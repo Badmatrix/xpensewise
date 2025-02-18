@@ -1,14 +1,18 @@
-import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { Progress } from "@/components/ui/progress";
 import { formatCurrency } from "@/lib/helper";
 import { Pots } from "@/types/types";
 import { Ellipsis } from "lucide-react";
+import { PotDropdown } from "./PotDropdown";
+import PotListButtons from "./PotListButtons";
 
 type Props = {
   pot: Pots;
@@ -16,6 +20,7 @@ type Props = {
 function PotList({ pot }: Props) {
   const { name, theme, total, target } = pot;
   const val = Math.ceil((total / target) * 100);
+  
   return (
     <Card>
       <CardHeader>
@@ -27,7 +32,13 @@ function PotList({ pot }: Props) {
             ></span>
             {name}
           </h1>
-          <Ellipsis className="text-grey-500" />
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Ellipsis className="cursor-pointer text-sm text-grey-300" />
+              {/* <Button variant="outline">Open</Button> */}
+            </DropdownMenuTrigger>
+            <PotDropdown pot={pot} />
+          </DropdownMenu>
         </div>
       </CardHeader>
       <CardContent className="capitalize">
@@ -47,15 +58,7 @@ function PotList({ pot }: Props) {
           </div>
         </div>
       </CardContent>
-      <CardFooter className="flex justify-center gap-7">
-        <Button className="w-1/2 scale-105 transform bg-beige-100 capitalize text-grey-900 transition-all duration-300 ease-linear hover:bg-beige-500/30">
-          add money
-        </Button>
-
-        <Button className="w-1/2 scale-105 transform bg-beige-100 capitalize text-grey-900 transition-all duration-300 ease-linear hover:bg-beige-500/30">
-          withdraw
-        </Button>
-      </CardFooter>
+      <PotListButtons pot={pot}/>
     </Card>
   );
 }

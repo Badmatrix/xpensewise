@@ -4,7 +4,7 @@ import React from "react";
 
 type Props = {
   item: Budgets;
-  groupedSum: unknown;
+  groupedSum: Record<string, number>
 };
 function ChartSummaryList({ item, groupedSum }: Props) {
   const { theme, category } = item;
@@ -18,7 +18,7 @@ function ChartSummaryList({ item, groupedSum }: Props) {
         <span>{item.category}</span>
 
         <div className="text-sm font-bold text-grey-900">
-          {formatCurrency(groupedSum[category])}
+          {formatCurrency(groupedSum[category]??0)}
         </div>
       </div>
     </li>

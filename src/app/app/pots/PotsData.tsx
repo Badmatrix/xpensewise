@@ -5,8 +5,9 @@ import { getPots } from "@/service/apiUser";
 
 async function PotsData() {
   const pots = await getPots();
+  // console.log(pots)
 
-  if (!pots) return <EmptyPots />;
+  if (!pots.length) return <EmptyPots />;
   return (
     <section className="my-5 md:my-7">
       <ul className="grid gap-7 md:grid-cols-2">

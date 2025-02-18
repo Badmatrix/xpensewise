@@ -1,18 +1,21 @@
-import { PiTipJarLight } from "react-icons/pi";
 import { IoMdArrowDropright } from "react-icons/io";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { formatCurrency, getTotal } from "@/lib/helper";
 import { getPots } from "@/service/apiUser";
 import PotListSummary from "./PotListSummary";
+import { PiTipJarLight } from "react-icons/pi";
+
 async function PotSummary() {
   const pots = await getPots();
   const savings = getTotal(pots);
   const potsDisplay = pots.slice(0, 4);
 
-  // const savings=getTotal(pots)
+  
   return (
-    <Card className="row-span-1 h-fit overflow-hidden border-0 text-grey-900">
+    <Card
+      className={`row-span-1 h-fit overflow-hidden border-0 text-grey-900 ${!pots.length ? "hidden" : ""}`}
+    >
       <CardHeader>
         <CardTitle className="flex justify-between capitalize text-grey-900">
           <h3 className="text-lg font-semibold"> pots</h3>

@@ -1,13 +1,13 @@
+import { AvatarImage } from "@/components/ui/avatar";
 import { CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDateFromTimestamp } from "@/lib/helper";
-import { getTransactions } from "@/service/apiUser";
+import { Transaction } from "@/types/types";
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 
-import React from "react";
+type Props = { data: Transaction[] };
 
-async function TransactionTableSummary() {
-  const data = await getTransactions();
+function TransactionTableSummary({ data }: Props) {
   const display = data.splice(0, 5);
   return (
     <CardContent>
@@ -17,7 +17,7 @@ async function TransactionTableSummary() {
             <TableRow key={item.id}>
               <TableCell className="flex items-center gap-5">
                 <Avatar>
-                  {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
+                  <AvatarImage src={item.avatar} />
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 {item.name}

@@ -13,7 +13,7 @@ function BillsDisplay() {
           <div className="w-1/3">
             <Input
               placeholder="search bills"
-              className="h-8 w-full outline-none ring-0 placeholder:text-sm md:w-full"
+              className="h-8 w-full cursor-pointer outline-none ring-grey-500 placeholder:text-sm focus:ring-2 md:w-full"
             />
           </div>
           <Sort />

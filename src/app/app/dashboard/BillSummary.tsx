@@ -1,8 +1,11 @@
-import { Card } from "@/components/ui/card"
+import { Card } from "@/components/ui/card";
 
 function BillSummary() {
+  const bill = [];
   return (
-    <Card className="border-0 lg:row-span-3">
+    <Card
+      className={`row-end-5 place-self-start border-0 lg:row-span-3 ${!bill.length ? "hidden" : "block"}`}
+    >
       BillSummary Lorem ipsum dolor sit, amet consectetur adipisicing elit.
       Repellendus, quae! Fugit voluptas facere doloribus dolorem, reiciendis
       deleniti distinctio placeat odit, dolorum veritatis cupiditate excepturi
@@ -18,4 +21,4 @@ function BillSummary() {
   );
 }
 
-export default BillSummary
+export default BillSummary;

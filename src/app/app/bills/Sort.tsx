@@ -14,7 +14,7 @@ function Sort() {
         sort by:
       </Label>
       <Select>
-        <SelectTrigger className="lg:w-[100px]">
+        <SelectTrigger className="ring-grey-500 focus:ring-2 lg:w-[100px]">
           <SelectValue placeholder="All" />
         </SelectTrigger>
         <SelectContent className="text-sm md:text-base">

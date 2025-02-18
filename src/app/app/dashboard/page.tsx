@@ -10,7 +10,7 @@ function page() {
       <h1 className="text-2xl font-bold capitalize">overview</h1>
       <main className="space-y-7">
         <BalanceSummary />
-        <section className="grid items-start  gap-7 lg:grid-flow-col lg:grid-rows-5">
+        <section className="grid size-auto items-start gap-7 lg:grid-flow-col-dense lg:grid-rows-5">
           <PotSummary />
           <TransactionSummary />
           <BudgetSummary />
