@@ -5,11 +5,11 @@ import { Label } from "@/components/ui/label";
 import { updatePotsAction } from "@/lib/Actions";
 import { Pots } from "@/types/types";
 import { DollarSign } from "lucide-react";
-import { SubmitHandler } from "react-hook-form";
+import { SubmitHandler, UseFormReturn } from "react-hook-form";
 type Props = {
   pot: Pots;
   setOpen: (open: boolean) => void;
-  form: any;
+  form: UseFormReturn<Pots>;
 };
 
 function WithdrawalForm({ pot, setOpen, form }: Props) {
