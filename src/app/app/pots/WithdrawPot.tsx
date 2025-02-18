@@ -10,7 +10,7 @@ import { Pots } from "@/types/types";
 import WithdrawalForm from "./WithdrawalForm";
 import { useForm } from "react-hook-form";
 
-type Props = { pot: Pots; setOpen: any };
+type Props = { pot: Pots; setOpen: (open: boolean) => void };
 
 export default function WithdrawPot({ pot, setOpen }: Props) {
   const { name, theme, target, total } = pot;

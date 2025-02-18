@@ -25,7 +25,7 @@ export default function AddtoPot({ pot, setOpen }: Props) {
     <DialogContent>
       <DialogHeader>
         <DialogTitle className="text-xl font-bold capitalize">
-          Add to '{name}'
+          Add to {`${name}`}
         </DialogTitle>
         <DialogDescription>
           Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Phasellus

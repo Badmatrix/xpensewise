@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   pot: Pots;
-  setOpen: any;
+  setOpen: (open: boolean) => void;
 };
 
 function EditpotForm({ pot, setOpen }: Props) {
@@ -26,7 +26,7 @@ function EditpotForm({ pot, setOpen }: Props) {
     handleSubmit,
     reset,
 
-    formState: { isSubmitSuccessful, errors },
+    formState: { errors },
   } = useForm<Pots>({
     defaultValues: {
       id,

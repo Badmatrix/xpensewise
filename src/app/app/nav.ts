@@ -1,6 +1,7 @@
 import { Home, ArrowUpDown, ReceiptText } from "lucide-react";
 import { PiTipJar } from "react-icons/pi";
 import { FaChartPie } from "react-icons/fa";
+import { Transaction } from "@/types/types";
 
 export const navigation = [
   {
@@ -122,7 +123,7 @@ export const colors = [
   },
 ];
 
-export const allTransactions:any[] = [
+export const allTransactions:Transaction[] = [
     {
       "avatar": "/assets/images/avatars/emma-richardson.jpg",
       "name": "Emma Richardson",

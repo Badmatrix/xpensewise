@@ -11,7 +11,7 @@ import { Budgets } from "@/types/types";
 
 type Props = {
   budget: Budgets;
-  setOpen:any
+  setOpen: (open: boolean) => void;
 };
 function EditBudgetModal({ budget, setOpen }: Props) {
   return (

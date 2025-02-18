@@ -9,7 +9,7 @@ const tableHeader = [
   "amount",
 ];
 type Props = { filter: string; sort: string; search: string };
-async function TransactionTable({ filter, sort, search }: any) {
+async function TransactionTable({ filter, sort, search }: Props) {
   const transactions = await getTransactions();
 
   const filteredTransactions =
