@@ -1,4 +1,4 @@
-import { AvatarImage } from "@/components/ui/avatar";
+// import { AvatarImage } from "@/components/ui/avatar";
 import { CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDateFromTimestamp } from "@/lib/helper";

@@ -1,8 +1,8 @@
 "use client"
 import Link from "next/link";
 
-export default function Error({ error }:any) {
-  console.log(error.message)
+export default function Error() {
+  // console.log(error.message)
   return (
     <div className="flex min-h-screen flex-col items-center justify-center bg-red-100 p-6 text-center">
       <h1 className="text-6xl font-bold text-red-800">Error</h1>
