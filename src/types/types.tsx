@@ -3,13 +3,13 @@ export type Metadata = {
   description: string;
 };
 export type Transaction = {
-  id: number;
+  id?: number;
   created_at: Date
   name: string;
   category: string;
   avatar?: string;
   amount: number;
-  recurring?: string;
+  recurring?: Boolean;
 };
 export interface Budgets {
   id?: number;
