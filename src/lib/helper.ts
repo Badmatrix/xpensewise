@@ -1,12 +1,12 @@
-import {  TotalProps } from "@/types/types";
+import { TotalProps } from "@/types/types";
 import { format, parseISO } from "date-fns";
 
 export function formatDateFromTimestamp(
-  timestamp: string,
+  timestamp: Date,
   desiredFormat: string = "dd MMM yyyy",
 ): string {
   try {
-    const parsedDate = parseISO(timestamp); // Parse the ISO 8601 timestamp string
+    const parsedDate = parseISO(String(timestamp)); // Parse the ISO 8601 timestamp string
     const formattedDate = format(parsedDate, desiredFormat); // Format the date
     return formattedDate;
   } catch (error) {
