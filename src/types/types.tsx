@@ -4,7 +4,7 @@ export type Metadata = {
 };
 export type Transaction = {
   id: number;
-  created_at: string;
+  created_at: Date
   name: string;
   category: string;
   avatar?: string;
@@ -13,14 +13,14 @@ export type Transaction = {
 };
 export interface Budgets {
   id?: number;
-  created_at?: string;
+  created_at: Date
   category: string;
   theme: string;
   maximum: number;
 }
 export interface Pots {
-  id?: number;
-  created_at?: string;
+  id: number;
+  created_at: Date
   target: number;
   theme: string;
   name: string;

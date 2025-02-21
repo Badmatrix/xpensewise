@@ -30,11 +30,11 @@ function AddNewPotForm({ setOpen }: Props) {
     await AddNewPotAction({
       ...data,
       target: Number(data.target),
-      created_at: String(new Date()),
+      created_at: new Date(),
       total: 0,
     });
 
-    await setOpen(false);
+    setOpen(false);
   };
 
   return (

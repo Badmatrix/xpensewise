@@ -27,19 +27,18 @@ export default function AddNewBudget({ setOpen }: Props) {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting, isSubmitSuccessful },
+    formState: { isSubmitting },
   } = useForm<IFormInput>();
 
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     await AddBudgetAction({
       ...data,
       maximum: Number(data.maximum),
-      created_at: String(new Date()),
+      created_at: new Date(),
     });
-    if (isSubmitSuccessful) {
-      reset();
-      setOpen(false);
-    }
+
+    reset();
+    setOpen(false);
   };
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>

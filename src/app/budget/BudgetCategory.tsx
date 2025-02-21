@@ -11,16 +11,11 @@ import {
   DropdownMenu,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Budgets } from "@/types/types";
 
-interface BudgetProps {
-  id: number;
-  category: string;
-  theme: string;
-  maximum: number;
-  created_at?: string;
-}
+
 type Props = {
-  budget: BudgetProps;
+  budget: Budgets;
 };
 async function BudgetCategory({ budget }: Props) {
   const data = await getTransactionByCategory(budget.category);
