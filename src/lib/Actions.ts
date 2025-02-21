@@ -20,6 +20,13 @@ export async function updateBudgetAction(formData: Budgets) {
   // console.log(formData);
 }
 
+// type BudgetForm = {
+//   id: number;
+//   created_at?: string;
+//   category: string;
+//   theme: string;
+//   maximum: number;
+// };
 export async function AddBudgetAction(formData: Budgets) {
   const { error } = await supabase.from("budgets").insert([formData]);
 

@@ -15,10 +15,11 @@ type Props = {
 };
 function DeleteBudget({ budget, setOpen }: Props) {
   const [isPending, startTransition] = useTransition();
+
   function handleDelete() {
     startTransition(async () => {
-      await deleteBudgetAction(budget.id);
-      await setOpen(false);
+      await deleteBudgetAction(budget.id ?? 0);
+      setOpen(false);
     });
   }
   return (

@@ -3,7 +3,7 @@ export type Metadata = {
   description: string;
 };
 export type Transaction = {
-  id?: number;
+  id: number;
   created_at: string;
   name: string;
   category: string;

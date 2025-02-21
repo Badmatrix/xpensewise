@@ -9,7 +9,6 @@ import EmptyBudget from "./EmptyBudget";
 
 async function page() {
   const budgets = await getBudgets();
-  // console.log(budgets);
 
   return (
     <div className="w-full space-y-4">

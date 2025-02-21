@@ -17,7 +17,7 @@ function DeletePot({ pot, setOpen }: Props) {
   const [isPending, startTransition] = useTransition();
   function handleDelete() {
     startTransition(async () => {
-      await deletePotAction(pot.id);
+      await deletePotAction(pot.id ?? 0);
       setOpen(false);
     });
   }

@@ -6,8 +6,8 @@ import {
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import DeleteBudget from "./DeleteBudget";
-import { Budgets } from "@/types/types";
 import EditBudgetModal from "./EditBudgetModal";
+import { Budgets } from "@/types/types";
 import { useState } from "react";
 
 type Props = {

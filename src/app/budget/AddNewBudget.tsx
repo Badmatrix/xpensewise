@@ -29,6 +29,7 @@ export default function AddNewBudget({ setOpen }: Props) {
     reset,
     formState: { isSubmitting, isSubmitSuccessful },
   } = useForm<IFormInput>();
+
   const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     await AddBudgetAction({
       ...data,

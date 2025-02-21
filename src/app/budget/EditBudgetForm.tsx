@@ -44,7 +44,7 @@ export default function EditBudgetForm({ budget, setOpen }: Props) {
     await updateBudgetAction({
       ...data,
       maximum: Number(data.maximum),
-      created_at: new Date(),
+      created_at: String(new Date()),
     });
     if (isSubmitSuccessful) {
       reset();
