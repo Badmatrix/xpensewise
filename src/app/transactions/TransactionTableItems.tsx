@@ -1,22 +1,16 @@
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { TableBody, TableRow, TableCell } from "../../components/ui/table";
 import { formatCurrency, formatDateFromTimestamp } from "@/lib/helper";
+import { Transaction } from "@/types/types";
 
-interface Transactions {
-  id: string;
-  name: string;
-  category: string;
-  created_at: string;
-  amount: number;
-  avatar?: string;
-}
+
 type componentProps = {
-  transactions: Transactions[];
+  transactions: Transaction[];
 };
 function TransactionTableItems({ transactions }: componentProps) {
   return (
     <TableBody>
-      {transactions?.map((transaction: Transactions) => (
+      {transactions?.map((transaction: Transaction) => (
         <TableRow key={transaction.id}>
           <TableCell className="flex items-center gap-5">
             <Avatar>
