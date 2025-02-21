@@ -6,14 +6,18 @@ import TransactionTable from "./TransactionTable";
 import TableLoading from "./TableLoading";
 import Header from "./Header";
 
-function page({
-  searchParams,
-}: {
-  searchParams: { sortBy?: string; categories?: string; search?: string };
-}) {
-  const filter = searchParams?.categories || "all-transactions";
-  const sort = searchParams?.sortBy || "latest";
-  const search = searchParams?.search || "";
+type searchParamsProps = {
+  sortBy?: string;
+  categories?: string;
+  search?: string;
+};
+type Props = {
+  searchParams: Promise<searchParamsProps>;
+};
+async function page({ searchParams }: Props) {
+  const filter = (await searchParams)?.categories || "all-transactions";
+  const sort = (await searchParams)?.sortBy || "latest";
+  const search = (await searchParams)?.search || "";
 
   // console.log(typeof searchParams, searchParams);
 
