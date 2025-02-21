@@ -33,7 +33,7 @@ export default function AddNewBudget({ setOpen }: Props) {
     await AddBudgetAction({
       ...data,
       maximum: Number(data.maximum),
-      created_at: new Date(),
+      created_at: String(new Date()),
     });
     if (isSubmitSuccessful) {
       reset();

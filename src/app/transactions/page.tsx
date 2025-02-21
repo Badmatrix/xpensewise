@@ -19,7 +19,7 @@ async function page({ searchParams }: Props) {
   const sort = (await searchParams)?.sortBy || "latest";
   const search = (await searchParams)?.search || "";
 
-  // console.log(typeof searchParams, searchParams);
+
 
   return (
     <div className="w-full space-y-4">
