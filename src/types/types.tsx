@@ -9,7 +9,7 @@ export type Transaction = {
   category: string;
   avatar?: string;
   amount: number;
-  recurring?: Boolean;
+  recurring?: boolean;
 };
 export interface Budgets {
   id?: number;
