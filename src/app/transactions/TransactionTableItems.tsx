@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
-import { TableBody, TableRow, TableCell } from "./ui/table";
+import { TableBody, TableRow, TableCell } from "../../components/ui/table";
 import { formatCurrency, formatDateFromTimestamp } from "@/lib/helper";
 
 interface Transactions {

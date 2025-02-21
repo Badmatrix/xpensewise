@@ -7,7 +7,7 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { category, colors } from "../nav";
+import { category, colors } from "../../lib/nav";
 import { Budgets } from "@/types/types";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { Button } from "@/components/ui/button";

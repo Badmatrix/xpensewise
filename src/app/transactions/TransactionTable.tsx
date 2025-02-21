@@ -1,4 +1,4 @@
-import TransactionTableItems from "@/components/TransactionTableItems";
+import TransactionTableItems from "@/app/transactions/TransactionTableItems";
 import { Table, TableHeader, TableRow, TableHead } from "@/components/ui/table";
 import { getTransactions } from "@/service/apiUser";
 
@@ -11,7 +11,7 @@ const tableHeader = [
 type Props = { filter: string; sort: string; search: string };
 async function TransactionTable({ filter, sort, search }: Props) {
   const transactions = await getTransactions();
-
+// console.log(transactions)
   const filteredTransactions =
     filter === "all-transactions"
       ? transactions

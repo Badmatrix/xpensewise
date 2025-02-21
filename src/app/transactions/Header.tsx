@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { addMultipleTransactions } from "@/lib/Actions";
 import { useTransition } from "react";
-import { allTransactions } from "../nav";
+import { allTransactions } from "../../lib/nav";
 
 function Header() {
   const [isPending, startTransition] = useTransition();

@@ -1,7 +1,7 @@
 "use client";
-import Link from "next/link";
-import { navigation } from "@/app/app/nav";
+import { navigation } from "@/lib/nav";
 import { usePathname } from "next/navigation";
+import Link from "next/link";
 
 function AppFooter() {
   const pathname = usePathname();
@@ -9,7 +9,8 @@ function AppFooter() {
   return (
     <ul className="flex justify-around text-xs capitalize text-grey-300">
       {navigation.map((item) => {
-        const isActive = pathname === `/app/${item.url}`;
+        const isActive = pathname === `/${item.url}`;
+
         return (
           <Link
             href={item.url}

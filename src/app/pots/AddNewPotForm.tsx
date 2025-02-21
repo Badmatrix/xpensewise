@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { colors } from "../nav";
+import { colors } from "../../lib/nav";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { AddNewPotAction } from "@/lib/Actions";
 import { Pots } from "@/types/types";

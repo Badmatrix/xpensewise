@@ -37,7 +37,3 @@ export function getTotal(data: TotalProps[]) {
     0,
   );
 }
-// export async function getBudgetCategories(array: any[]) {
-//   const data = array.map((item) => item.category);
-//   return data;
-// }

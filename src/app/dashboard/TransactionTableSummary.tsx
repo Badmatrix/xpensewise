@@ -17,7 +17,7 @@ function TransactionTableSummary({ data }: Props) {
             <TableRow key={item.id}>
               <TableCell className="flex items-center gap-5">
                 <Avatar>
-                  <AvatarImage src={item.avatar} />
+                  {/* <AvatarImage src={item.avatar} /> */}
                   <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 {item.name}

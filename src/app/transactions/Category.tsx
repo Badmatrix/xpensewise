@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { category } from "../nav";
+import { category } from "../../lib/nav";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function Category() {

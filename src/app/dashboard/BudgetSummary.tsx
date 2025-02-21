@@ -13,9 +13,9 @@ async function BudgetSummary() {
   const allTransactions = getTotal(transactions);
   const display = budgets.slice(0, 4);
 
-  const groupedSum: Record<string, number> = transactions.reduce(
+  const groupedSum: Record<string, number> = budgets.reduce(
     (acc, item) => {
-      acc[item.category] = (acc[item.category] || 0) + (item.amount ?? 0);
+      acc[item.category] = (acc[item.category] || 0) + (item.maximum ?? 0);
       return acc;
     },
     {} as Record<string, number>,

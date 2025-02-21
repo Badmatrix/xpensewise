@@ -11,7 +11,8 @@ import {
   SidebarMenuItem,
 } from "./ui/sidebar";
 import { usePathname } from "next/navigation";
-import { navigation } from "@/app/app/nav";
+import { navigation } from "@/lib/nav";
+
 
 function AppSidebar() {
   const pathname = usePathname();
@@ -25,7 +26,7 @@ function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu className="space-y-2 pr-4">
               {navigation.map((item) => {
-                const isActive = pathname === `/app/${item.url}`;
+                const isActive = pathname === `/${item.url}`;
                 return (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>

@@ -7,7 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { sorts } from "../nav";
+import { sorts } from "../../lib/nav";
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
