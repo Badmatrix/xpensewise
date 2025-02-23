@@ -72,7 +72,7 @@ export function getSearchedData<T extends Record<string, any>>(
 }
 
 export const generatePageNumbers = (curr: number,pageNum:number) => {
-  let pages = new Set<number>();
+  const pages = new Set<number>();
 
   pages.add(1); // First page
   pages.add(pageNum); // Last page
