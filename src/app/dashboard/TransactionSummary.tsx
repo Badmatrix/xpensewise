@@ -1,11 +1,11 @@
-import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
+import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { IoMdArrowDropright } from "react-icons/io";
 import TransactionTableSummary from "./TransactionTableSummary";
-import { getTransactions } from "@/service/apiUser";
+import { getAllTransactions} from "@/service/apiUser";
 
 async function TransactionSummary() {
-  const data = await getTransactions();
+  const data = await getAllTransactions();
 
   return (
     <Card

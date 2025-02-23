@@ -1,10 +1,9 @@
+import Link from "next/link";
+import ChartSummary from "./ChartSummary";
+import ChartSummaryList from "./ChartSummaryList";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getBudgets, getTransactionByCategory } from "@/service/apiUser";
-import ChartSummary from "./ChartSummary";
-
 import { IoMdArrowDropright } from "react-icons/io";
-import Link from "next/link";
-import ChartSummaryList from "./ChartSummaryList";
 import { Transaction } from "@/types/types";
 
 async function BudgetSummary() {
@@ -13,20 +12,27 @@ async function BudgetSummary() {
   const res = await Promise.all(
     budgets.map((item) => getTransactionByCategory(item.category)),
   );
+
   const transactions: Transaction[] = res.flat();
 
+  // Calculate total transactions with negative amounts
   const allTransactions = Math.abs(
-    transactions.reduce((total, item) => {
-      return item.amount < 0 ? total + item.amount : total;
-    }, 0),
+    transactions.reduce(
+      (total, item) => (item.amount < 0 ? total + item.amount : total),
+      0,
+    ),
   );
+
+  // Display only the first 4 budgets
   const display = budgets.slice(0, 4);
-  const groupedSum: Record<string, number> = transactions.reduce(
+
+  // Group transactions by category and sum amounts
+  const groupedSum = transactions.reduce<Record<string, number>>(
     (acc, item) => {
       acc[item.category] = (acc[item.category] || 0) + item.amount;
       return acc;
     },
-    {} as Record<string, number>,
+    {},
   );
 
   return (
