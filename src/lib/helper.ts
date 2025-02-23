@@ -57,7 +57,7 @@ export function getSortedData<
   });
 }
 
-export function getSearchedData<T extends Record<string, any>>(
+export function getSearchedData<T extends Record<string,number>>(
   dataArr: Array<T>,
   keyArr: Array<keyof T>,
   searchBy: string,
