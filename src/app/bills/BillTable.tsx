@@ -3,7 +3,9 @@ import { Table, TableHeader, TableRow, TableHead } from "@/components/ui/table";
 import React from "react";
 import BillData from "./BillData";
 const tableHeader = ["bill title", "due date", "amount"];
-function BillTable() {
+type Props = { sort: string; search: string; page: number };
+
+function BillTable({ sort, search, page }: Props) {
   return (
     <Table>
       <TableHeader>
@@ -15,7 +17,7 @@ function BillTable() {
           ))}
         </TableRow>
       </TableHeader>
-      <BillData />
+      <BillData sort={sort} search={search} page={page} />
     </Table>
   );
 }

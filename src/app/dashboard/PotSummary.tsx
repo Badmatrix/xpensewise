@@ -11,10 +11,9 @@ async function PotSummary() {
   const savings = getTotal(pots);
   const potsDisplay = pots.slice(0, 4);
 
-  
   return (
     <Card
-      className={`row-span-1 h-fit overflow-hidden border-0 text-grey-900 ${!pots.length ? "hidden" : ""}`}
+      className={`h-fit overflow-hidden border-0 text-grey-900 lg:row-span-1 ${!pots.length ? "hidden" : ""}`}
     >
       <CardHeader>
         <CardTitle className="flex justify-between capitalize text-grey-900">

@@ -1,5 +1,7 @@
 import TransactionTableItems from "@/app/transactions/TransactionTableItems";
 import { Table, TableHeader, TableRow, TableHead } from "@/components/ui/table";
+import { PAGE_SIZE } from "@/lib/Constant";
+import { getSearchedData, getSortedData } from "@/lib/helper";
 import { getTransactions } from "@/service/apiUser";
 
 const tableHeader = [
@@ -8,9 +10,13 @@ const tableHeader = [
   "transaction date",
   "amount",
 ];
-type Props = { filter: string; sort: string; search: string };
-async function TransactionTable({ filter, sort, search }: Props) {
-  const transactions = await getTransactions();
+
+type Props = { filter: string; sort: string; search: string; page: number };
+
+async function TransactionTable({ filter, sort, search, page }: Props) {
+  const start = (page - 1) * PAGE_SIZE;
+  const end = start + PAGE_SIZE - 1;
+  const transactions = await getTransactions(start, end);
 
   const filteredTransactions =
     filter === "all-transactions"
@@ -20,25 +26,12 @@ async function TransactionTable({ filter, sort, search }: Props) {
             tx.category && tx.category.toLowerCase() === filter.toLowerCase(),
         );
 
-  const sortedTransactions = [...filteredTransactions].sort((a, b) => {
-    const getTime = (date: string) => new Date(date).getTime(); // Ensure number output
-
-    const sortOptions: Record<string, number> = {
-      latest: getTime(b.created_at) - getTime(a.created_at),
-      oldest: getTime(a.created_at) - getTime(b.created_at),
-      highest: b.amount - a.amount,
-      lowest: a.amount - b.amount,
-      "a-z": a.name.localeCompare(b.name),
-      "z-a": b.name.localeCompare(a.name),
-    };
-
-    return sortOptions[sort] ?? 0;
-  });
-
-  const searchedTransactions = sortedTransactions.filter((tx) =>
-    ["name", "category", "amount"].some((key) =>
-      String(tx[key]).toLowerCase().includes(search.toLowerCase()),
-    ),
+  const searchBy = ["name", "category", "amount"];
+  const sortedTransactions = getSortedData(filteredTransactions, sort);
+  const searchedTransactions = getSearchedData(
+    sortedTransactions,
+    searchBy,
+    search,
   );
 
   return (

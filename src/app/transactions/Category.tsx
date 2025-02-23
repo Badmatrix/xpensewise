@@ -24,7 +24,7 @@ function Category() {
       <Label className="text-xs capitalize md:text-base">category:</Label>
 
       <Select onValueChange={(value) => handleFilter(value)}>
-        <SelectTrigger className="ring-grey-900 focus:ring-2 lg:w-[100px]">
+        <SelectTrigger className="ring-grey-900 focus:ring-2 lg:w-fit">
           <SelectValue placeholder="Categories" />
         </SelectTrigger>
         <SelectContent className="capitalize">

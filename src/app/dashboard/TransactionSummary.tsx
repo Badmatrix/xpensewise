@@ -9,7 +9,7 @@ async function TransactionSummary() {
 
   return (
     <Card
-      className={`border-0 lg:row-span-4 ${!data.length ? "hidden" : "block"}`}
+      className={`border-0 lg:row-span-3 ${!data.length ? "hidden" : "block"}`}
     >
       <CardHeader>
         <CardTitle className="flex justify-between capitalize text-grey-900">

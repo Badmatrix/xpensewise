@@ -5,7 +5,7 @@ import { SidebarProvider, SidebarTrigger } from "./ui/sidebar";
 function AppLayout({ children }: { children: ReactNode }) {
     
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider defaultOpen={true} className="pb-10">
       <aside className="hidden lg:block">
         <AppSidebar />
       </aside>

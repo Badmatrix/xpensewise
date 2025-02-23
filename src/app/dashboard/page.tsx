@@ -10,11 +10,15 @@ function page() {
       <h1 className="text-2xl font-bold capitalize">overview</h1>
       <main className="space-y-7">
         <BalanceSummary />
-        <section className="grid size-auto items-start gap-7 lg:grid-flow-col-dense lg:grid-rows-5">
-          <PotSummary />
-          <TransactionSummary />
-          <BudgetSummary />
-          <BillSummary />
+        <section className="grid  gap-7 self-start  xl:grid-flow-col">
+          <div className="grid items-start gap-y-7 self-start xl:grid-rows-4">
+            <PotSummary />
+            <TransactionSummary />
+          </div>
+          <div className="grid items-start gap-y-7 self-start xl:grid-rows-3">
+            <BudgetSummary />
+            <BillSummary />
+          </div>
         </section>
       </main>
     </div>

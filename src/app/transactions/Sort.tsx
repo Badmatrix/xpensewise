@@ -27,7 +27,7 @@ function Sort() {
         sort by:
       </Label>
       <Select onValueChange={(value) => handleSort(value)}>
-        <SelectTrigger className="ring-grey-900 focus:ring-2 lg:w-[100px]">
+        <SelectTrigger className="w-fit text-nowrap ring-grey-900 focus:ring-2">
           <SelectValue placeholder="Latest" />
         </SelectTrigger>
         <SelectContent className="text-sm capitalize md:text-base">

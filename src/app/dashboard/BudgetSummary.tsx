@@ -1,21 +1,29 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { getBudgets, getTransactions } from "@/service/apiUser";
+import { getBudgets, getTransactionByCategory } from "@/service/apiUser";
 import ChartSummary from "./ChartSummary";
-import { getTotal } from "@/lib/helper";
 
 import { IoMdArrowDropright } from "react-icons/io";
 import Link from "next/link";
 import ChartSummaryList from "./ChartSummaryList";
+import { Transaction } from "@/types/types";
 
 async function BudgetSummary() {
   const budgets = await getBudgets();
-  const transactions = await getTransactions();
-  const allTransactions = getTotal(transactions);
-  const display = budgets.slice(0, 4);
 
-  const groupedSum: Record<string, number> = budgets.reduce(
+  const res = await Promise.all(
+    budgets.map((item) => getTransactionByCategory(item.category)),
+  );
+  const transactions: Transaction[] = res.flat();
+
+  const allTransactions = Math.abs(
+    transactions.reduce((total, item) => {
+      return item.amount < 0 ? total + item.amount : total;
+    }, 0),
+  );
+  const display = budgets.slice(0, 4);
+  const groupedSum: Record<string, number> = transactions.reduce(
     (acc, item) => {
-      acc[item.category] = (acc[item.category] || 0) + (item.maximum ?? 0);
+      acc[item.category] = (acc[item.category] || 0) + item.amount;
       return acc;
     },
     {} as Record<string, number>,
@@ -23,7 +31,7 @@ async function BudgetSummary() {
 
   return (
     <Card
-      className={`border-0 lg:row-span-2 ${!budgets.length ? "hidden" : "block"}`}
+      className={`border-0 lg:row-span-1 ${!budgets.length ? "hidden" : "block"}`}
     >
       <CardHeader>
         <CardTitle className="flex justify-between capitalize text-grey-900">
@@ -36,14 +44,14 @@ async function BudgetSummary() {
           </button>
         </CardTitle>
       </CardHeader>
-      <div className="flex flex-col items-center gap-3 md:flex-row">
-        <Card className="w-full border-0 shadow-none">
+      <div className="flex w-full flex-col items-center gap-3 md:flex-row lg:justify-between">
+        <Card className="w-2/3 justify-start border-0 shadow-none">
           <CardContent className="">
             <ChartSummary budgets={budgets} total={allTransactions} />
           </CardContent>
         </Card>
 
-        <ul className="mx-2 mb-3 flex flex-wrap items-center space-y-2 md:flex-col md:items-start">
+        <ul className="mx-2 mb-3 flex flex-wrap items-center space-y-2 md:flex-col md:items-start lg:w-1/3">
           {display.map((item) => (
             <ChartSummaryList
               item={item}

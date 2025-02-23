@@ -4,7 +4,7 @@ function BillSummary() {
   const bill = [];
   return (
     <Card
-      className={`row-end-5 place-self-start border-0 lg:row-span-3 ${!bill.length ? "hidden" : "block"}`}
+      className={`border-0 lg:row-span-2 ${bill.length ? "hidden" : "block"}`}
     >
       BillSummary Lorem ipsum dolor sit, amet consectetur adipisicing elit.
       Repellendus, quae! Fugit voluptas facere doloribus dolorem, reiciendis
