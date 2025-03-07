@@ -1,20 +1,23 @@
-"use client"
-import Link from "next/link";
+"use client";
+import { Button } from "@/components/ui/button";
+type Props = { error: Error };
+export default function Error({ error }: Props) {
+  console.log(error);
 
-export default function Error() {
-  // console.log(error.message)
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-red-100 p-6 text-center">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-beige-100 p-6 text-center">
       <h1 className="text-6xl font-bold text-red-800">Error</h1>
-      <p className="mt-4 text-xl text-red-600">
-        Something went wrong. Please try again later.
+      <p className="mt-4 text-xl text-red-600 text-center">
+        Something went wrong. <br />{" "}
+        <span className="capitalize">{error.message}</span>
       </p>
-      <Link
-        href="/"
+
+      <Button
+        onClick={() => window.location.reload()}
         className="mt-6 rounded-lg bg-red-600 px-6 py-3 text-white hover:bg-red-700"
       >
-        Go Home
-      </Link>
+        Reload
+      </Button>
     </div>
   );
 }

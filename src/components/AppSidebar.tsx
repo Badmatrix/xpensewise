@@ -12,7 +12,9 @@ import {
 } from "./ui/sidebar";
 import { usePathname } from "next/navigation";
 import { navigation } from "@/lib/nav";
-
+import { Button } from "./ui/button";
+import { logoutUser } from "@/lib/Actions";
+import { LogOut } from "lucide-react";
 
 function AppSidebar() {
   const pathname = usePathname();
@@ -48,6 +50,14 @@ function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
+        <SidebarContent className="absolute bottom-5 w-full text-left">
+          <Button
+            className="overflow-hidden rounded-none bg-grey-300 text-left text-white justify-start"
+            onClick={logoutUser}
+          >
+            <LogOut className="scale-125" /> <span>Logout</span>
+          </Button>
+        </SidebarContent>
       </SidebarContent>
     </Sidebar>
   );

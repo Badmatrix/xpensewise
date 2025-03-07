@@ -49,14 +49,7 @@ export async function getPots() {
   }
   return data;
 }
-export async function getBudgets() {
-  const { data, error } = await supabase.from("budgets").select("*");
-  if (error) {
-    console.error("cannot load budgets");
-    throw new Error("cannot load budgets");
-  }
-  return data;
-}
+
 export async function getRecuringBillsAll() {
   const { data, error } = await supabase
     .from("transactions")
@@ -78,6 +71,14 @@ export async function getRecuringBills(start: number, end: number) {
   if (error) {
     console.error("cannot load bills");
     throw new Error("cannot load bills");
+  }
+  return data;
+}
+export async function getBudgets() {
+  const { data, error } = await supabase.from("budgets").select("*");
+  if (error) {
+    console.error("cannot load budgets");
+    throw new Error("cannot load budgets");
   }
   return data;
 }

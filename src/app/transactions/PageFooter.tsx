@@ -27,12 +27,18 @@ function PageFooter({ pageNum }: Props) {
     curr++;
     params.set("page", String(curr));
     router.replace(`${pathname}?${params.toString()}`, { scroll: true });
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
   }
   function handlePrev() {
     if (isFirstPage) return;
     curr--;
     params.set("page", String(curr));
     router.replace(`${pathname}?${params.toString()}`, { scroll: true });
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
   }
 
   const pageNumbers = generatePageNumbers(curr, pageNum);

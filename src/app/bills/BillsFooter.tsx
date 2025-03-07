@@ -21,17 +21,24 @@ export default function BillsFooter({ pageNum }: Props) {
   const isFirstPage = curr === 1;
   const isLastPage = curr === pageNum;
 
-  function handleNext() {
+  async function handleNext() {
     if (isLastPage) return;
     curr++;
     params.set("page", String(curr));
     router.replace(`${pathname}?${params.toString()}`, { scroll: true });
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
   }
+
   function handlePrev() {
     if (isFirstPage) return;
     curr--;
     params.set("page", String(curr));
     router.replace(`${pathname}?${params.toString()}`, { scroll: true });
+    setTimeout(() => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }, 100);
   }
   return (
     <CardFooter>

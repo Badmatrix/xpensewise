@@ -20,7 +20,7 @@ async function page({ searchParams }: Props) {
   const pageNum = Math.ceil(data.length / PAGE_SIZE);
 
   return (
-    <div className="my-3 space-y-4">
+    <div className="my-3 space-y-4 scroll-smooth">
       <h1 className="text-2xl font-bold capitalize">Recurring bills</h1>
       <Suspense fallback={<Loading />}>
         <main className="grid gap-7 md:grid-cols-3">

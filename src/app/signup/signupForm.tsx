@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -10,11 +11,26 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { signupUser } from "@/lib/Actions";
+
+type SignUpProps = { email: string; password: string; cPass: string };
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+
+    formState: { errors, isSubmitting },
+  } = useForm<SignUpProps>();
+  const onSubmit: SubmitHandler<SignUpProps> = async ({ email, password }) => {
+    await signupUser(email, password);
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="border-0">
@@ -25,33 +41,87 @@ export function SignupForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  id="email"
                   type="email"
                   placeholder="mail@example.com"
-                  required
+                  {...register("email", {
+                    required: "enter your email",
+                    pattern: {
+                      value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                      message: "enter a valid email address",
+                    },
+                  })}
                 />
+                {errors && (
+                  <span className="text-xs italic text-secondary-red first-letter:capitalize">
+                    {errors?.email?.message}
+                  </span>
+                )}
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="password"> Password</Label>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  type="password"
+                  {...register("password", {
+                    required: "enter password",
+                    minLength: {
+                      value: 8,
+                      message: "password should be atleast 8 characters",
+                    },
+                    pattern: {
+                      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/,
+                      message:
+                        "password should contain alphabet and numbers only ",
+                    },
+                  })}
+                />
+                {errors && (
+                  <span className="text-xs italic text-secondary-red first-letter:capitalize">
+                    {errors?.password?.message}
+                  </span>
+                )}
               </div>
 
               <div className="grid gap-2">
                 <div className="flex items-center">
                   <Label htmlFor="confirmPassword">confirm Password</Label>
                 </div>
-                <Input id="confirmPassword" type="password" required />
-                <div className="text-xs inline-flex justify-end">password must be atleast 8 characters</div>
+                <Input
+                  type="password"
+                  {...register("cPass", {
+                    required: "confirm your password",
+                    minLength: {
+                      value: 8,
+                      message: "password should be atleast 8 characters",
+                    },
+                    pattern: {
+                      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/,
+                      message:
+                        "password should contain alphabet and numbers only ",
+                    },
+
+                    validate: (value) =>
+                      value === watch("password") || "Passwords do not match",
+                  })}
+                />
+                {errors && (
+                  <span className="text-xs italic text-secondary-red first-letter:capitalize">
+                    {errors?.cPass?.message}
+                  </span>
+                )}
               </div>
-              <Button type="submit" className="bg-grey-900 w-full capitalize">
-                create account
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-grey-900 capitalize"
+              >
+                {isSubmitting ? "creating..." : "create account"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

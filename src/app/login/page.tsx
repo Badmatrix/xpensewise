@@ -1,6 +1,6 @@
 import { LoginForm } from "./loginForm";
 
-function page() {
+async function page() {
   return (
     <div className="w-5/6">
       <LoginForm />

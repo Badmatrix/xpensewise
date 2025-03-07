@@ -28,7 +28,7 @@ export default function AddtoPotForm({ pot, form, setOpen }: Props) {
     });
 
     reset();
-    await setOpen(false);
+    setOpen(false);
   };
 
   return (

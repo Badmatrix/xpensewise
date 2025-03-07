@@ -1,7 +1,8 @@
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
 
-function page() {
-  redirect("/login");
+async function page() {
+  
+  return <div>hello</div>
 }
 
 export default page;

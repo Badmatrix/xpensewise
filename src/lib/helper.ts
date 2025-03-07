@@ -57,7 +57,7 @@ export function getSortedData<
   });
 }
 
-export function getSearchedData<T extends Record<string,number>>(
+export function getSearchedData<T extends Record<string, number>>(
   dataArr: Array<T>,
   keyArr: Array<keyof T>,
   searchBy: string,
@@ -71,7 +71,7 @@ export function getSearchedData<T extends Record<string,number>>(
   );
 }
 
-export const generatePageNumbers = (curr: number,pageNum:number) => {
+export const generatePageNumbers = (curr: number, pageNum: number) => {
   const pages = new Set<number>();
 
   pages.add(1); // First page

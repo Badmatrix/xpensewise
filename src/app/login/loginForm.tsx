@@ -1,3 +1,5 @@
+"use client";
+import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,15 +11,28 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import Link from "next/link";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { loginUser } from "@/lib/Actions";
+
+type LoginProps = { email: string; password: string };
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<LoginProps>();
+  const onSubmit: SubmitHandler<LoginProps> = async ({ email, password }) => {
+     await loginUser(email, password);
+    
+  };
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <Card className=" border-0">
+      <Card className="border-0">
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>
@@ -25,16 +40,26 @@ export function LoginForm({
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-col gap-6">
               <div className="grid gap-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
-                  id="email"
                   type="email"
                   placeholder="mail@example.com"
-                  required
+                  {...register("email", {
+                    required: "enter your email",
+                    pattern: {
+                      value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                      message: "enter a valid email address",
+                    },
+                  })}
                 />
+                {errors && (
+                  <span className="text-xs italic text-secondary-red first-letter:capitalize">
+                    {errors?.email?.message}
+                  </span>
+                )}
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
@@ -46,15 +71,31 @@ export function LoginForm({
                     Forgot your password?
                   </Link>
                 </div>
-                <Input id="password" type="password" required />
+                <Input
+                  type="password"
+                  {...register("password", {
+                    required: "enter password",
+                    pattern: {
+                      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/,
+                      message: "enter a valid password ",
+                    },
+                  })}
+                />
+                {errors && (
+                  <span className="text-xs italic text-secondary-red first-letter:capitalize">
+                    {errors?.password?.message}
+                  </span>
+                )}
               </div>
-              <Button type="submit" className="w-full bg-grey-900">
-                Login
-              </Button>
-              <Button variant="outline" className="w-full">
-                Login with Google
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="w-full bg-grey-900"
+              >
+                {isSubmitting ? "loading..." : " Login"}
               </Button>
             </div>
+
             <div className="mt-4 text-center text-sm">
               Don&apos;t have an account?{" "}
               <Link href="signup" className="underline underline-offset-4">
