@@ -37,7 +37,7 @@ async function TransactionTable({ filter, sort, search, page }: Props) {
   return (
     <Table className="w-full">
       <TableHeader>
-        <TableRow className="hidden md:table-row">
+        <TableRow className="md:table-row">
           {tableHeader.map((header) => (
             <TableHead key={header} className="capitalize">
               {header}

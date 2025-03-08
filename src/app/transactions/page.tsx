@@ -31,7 +31,7 @@ async function page({ searchParams }: Props) {
     <div className="w-full space-y-4 overflow-x-hidden">
       <Header />
 
-      <Card className="hidden w-full space-y-4 border-0 px-3 py-5 shadow-sm sm:block md:p-5">
+      <Card className=" w-full space-y-4 border-0 px-3 py-5 shadow-sm block md:p-5">
         <TransactionHeader />
         <CardContent className="p-0">
           <Suspense fallback={<TableLoading />} key={filter || sort}>

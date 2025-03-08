@@ -12,7 +12,6 @@ import {
 } from "./ui/sidebar";
 import { usePathname } from "next/navigation";
 import { navigation } from "@/lib/nav";
-import { Button } from "./ui/button";
 import { logoutUser } from "@/lib/Actions";
 import { LogOut } from "lucide-react";
 
@@ -50,14 +49,12 @@ function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarContent className="absolute bottom-5 w-full text-left">
-          <Button
-            className="overflow-hidden rounded-none bg-grey-300 text-left text-white justify-start"
-            onClick={logoutUser}
-          >
-            <LogOut className="scale-125" /> <span>Logout</span>
-          </Button>
-        </SidebarContent>
+        <SidebarMenuButton
+          onClick={logoutUser}
+          className="absolute bottom-5 w-full rounded-none bg-grey-300 px-3 py-5 text-left text-lg transition-all duration-300 ease-linear"
+        >
+          <LogOut className="scale-125" /> <span>Logout</span>
+        </SidebarMenuButton>
       </SidebarContent>
     </Sidebar>
   );
