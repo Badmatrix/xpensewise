@@ -2,7 +2,7 @@ import { LoginForm } from "./loginForm";
 
 async function page() {
   return (
-    <div className="w-5/6">
+    <div className="sm:w-5/6 w-full">
       <LoginForm />
     </div>
   );

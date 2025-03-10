@@ -18,7 +18,7 @@ function ChartSummary({ budgets, total }: Props) {
   return (
     <ChartContainer
       config={chartConfig}
-      className="aspect-square h-full max-h-[250px] w-full"
+      className="mx-auto aspect-square max-h-[250px]"
     >
       <PieChart>
         <ChartTooltip

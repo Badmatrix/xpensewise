@@ -51,13 +51,13 @@ async function BudgetSummary() {
         </CardTitle>
       </CardHeader>
       <div className="flex w-full flex-col items-center gap-3 md:flex-row lg:justify-between">
-        <Card className="w-2/3 justify-start border-0 shadow-none">
+        <Card className="w-full justify-start border-0 shadow-none">
           <CardContent className="">
             <ChartSummary budgets={budgets} total={allTransactions} />
           </CardContent>
         </Card>
 
-        <ul className="mx-2 mb-3 flex flex-wrap items-center space-y-2 md:flex-col md:items-start lg:w-1/3">
+        <ul className="mx-2 mb-3 flex flex-wrap gap-3 items-center space-y-2 md:flex-col md:items-start lg:w-1/3">
           {display.map((item) => (
             <ChartSummaryList
               item={item}

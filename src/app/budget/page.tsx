@@ -1,7 +1,6 @@
 import BudgetsCategories from "./BudgetsCategories";
-import BudgetLoading from "./BudgetLoading";
 import { getBudgets } from "@/service/apiUser";
-import { Suspense } from "react";
+
 
 import BudgetChart from "./BudgetChart";
 import BudgetHeader from "./BudgetHeader";
@@ -15,14 +14,12 @@ async function page() {
       <BudgetHeader />
 
       {!budgets.length ? (
-        <EmptyBudget/>
+        <EmptyBudget />
       ) : (
-        <Suspense fallback={<BudgetLoading />}>
-          <main className="grid gap-10 md:grid-cols-2">
-            <BudgetChart budgets={budgets} />
-            <BudgetsCategories budgets={budgets} />
-          </main>
-        </Suspense>
+        <main className="grid gap-10 md:grid-cols-2">
+          <BudgetChart budgets={budgets} />
+          <BudgetsCategories budgets={budgets} />
+        </main>
       )}
     </div>
   );

@@ -13,7 +13,7 @@ export default function SearchInput() {
     router.replace(`${pathname}?${params.toString()}`, { scroll: false });
   }
   return (
-    <div className="relative w-1/3">
+    <div className="relative w-2/3 sm:w-1/3">
       <Input
         className="w-full cursor-pointer pr-10 outline-none placeholder:text-xs focus:ring-1 focus:ring-grey-900"
         placeholder="Search transactions"

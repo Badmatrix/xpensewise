@@ -11,9 +11,7 @@ function AuthenticatedPage({ children }: { children: ReactNode }) {
       <div className="relative">
         <AppLayout>{children}</AppLayout>
 
-        <footer className="fixed bottom-0 w-full rounded-t-lg bg-grey-900 pt-2 lg:hidden">
-          <AppFooter />
-        </footer>
+        <AppFooter />
       </div>
     </main>
   );

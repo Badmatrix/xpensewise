@@ -1,12 +1,10 @@
 import { Card } from "@/components/ui/card";
-
-import React from "react";
 import BillTable from "./BillTable";
 import Sort from "./Sort";
 import SearchInput from "./SearchInput";
 
 import BillsFooter from "./BillsFooter";
-type Props = { sort: string; search: string; page: number; pageNum:number };
+type Props = { sort: string; search: string; page: number; pageNum: number };
 function BillsDisplay({ sort, search, page, pageNum }: Props) {
   return (
     <div className="md:col-span-2">

@@ -13,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { loginUser } from "@/lib/Actions";
+import LoadingSpinner from "../LoadingSpinner";
 
 type LoginProps = { email: string; password: string };
 
@@ -66,7 +67,7 @@ export function LoginForm({
                   <Label htmlFor="password">Password</Label>
                   <Link
                     href="#"
-                    className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
+                    className="ml-auto inline-block text-xs underline-offset-4 hover:underline sm:text-sm"
                   >
                     Forgot your password?
                   </Link>
@@ -92,7 +93,7 @@ export function LoginForm({
                 disabled={isSubmitting}
                 className="w-full bg-grey-900"
               >
-                {isSubmitting ? "loading..." : " Login"}
+                {isSubmitting ? <LoadingSpinner/> : " Login"}
               </Button>
             </div>
 

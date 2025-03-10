@@ -12,7 +12,7 @@ import {
 } from "./ui/sidebar";
 import { usePathname } from "next/navigation";
 import { navigation } from "@/lib/nav";
-import { logoutUser } from "@/lib/Actions";
+import LogoutDialog from "@/app/LogoutDialog";
 import { LogOut } from "lucide-react";
 
 function AppSidebar() {
@@ -49,12 +49,12 @@ function AppSidebar() {
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
-        <SidebarMenuButton
-          onClick={logoutUser}
-          className="absolute bottom-5 w-full rounded-none bg-grey-300 px-3 py-5 text-left text-lg transition-all duration-300 ease-linear"
-        >
-          <LogOut className="scale-125" /> <span>Logout</span>
-        </SidebarMenuButton>
+        <LogoutDialog>
+          <SidebarMenuButton className="absolute bottom-0 rounded-l-none bg-grey-500/30 py-1 transition-all duration-300 ease-linear hover:bg-secondary-red hover:text-grey-100">
+            <LogOut className="scale-125" />
+            Logout
+          </SidebarMenuButton>
+        </LogoutDialog>
       </SidebarContent>
     </Sidebar>
   );

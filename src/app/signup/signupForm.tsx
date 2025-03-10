@@ -13,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signupUser } from "@/lib/Actions";
+import LoadingSpinner from "../LoadingSpinner";
 
 type SignUpProps = { email: string; password: string; cPass: string };
 
@@ -121,7 +122,7 @@ export function SignupForm({
                 disabled={isSubmitting}
                 className="w-full bg-grey-900 capitalize"
               >
-                {isSubmitting ? "creating..." : "create account"}
+                {isSubmitting ? <LoadingSpinner/> : "create account"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

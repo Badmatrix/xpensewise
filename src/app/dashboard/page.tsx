@@ -13,10 +13,6 @@ async function page() {
     <div className="my-3 space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-2xl font-bold capitalize">overview</h1>
-        <h3 className="text-base">
-          welcome back,{" "}
-          <span className="font-semibold capitalize">{"name"}</span>
-        </h3>
       </div>
       <main className="space-y-7">
         <BalanceSummary />
