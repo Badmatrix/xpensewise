@@ -15,28 +15,27 @@ type Props = {
   setOpen: (open: boolean) => void;
 };
 function EditAddPotModal({ pot, setOpen, user }: Props) {
-  if (user)
-    return (
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="text-xl font-bold capitalize">
-            {pot?.id ? "Edit Pot" : "add new pot"}
-          </DialogTitle>
+  return (
+    <DialogContent>
+      <DialogHeader>
+        <DialogTitle className="text-xl font-bold capitalize">
+          {pot?.id ? "Edit Pot" : "add new pot"}
+        </DialogTitle>
 
-          <DialogDescription>
-            {pot?.id
-              ? "If your saving targets change, feel free to update your pots."
-              : "Create a pot to set savings targets. These can help keep you on track as you save for special purchases."}
-          </DialogDescription>
-        </DialogHeader>
+        <DialogDescription>
+          {pot?.id
+            ? "If your saving targets change, feel free to update your pots."
+            : "Create a pot to set savings targets. These can help keep you on track as you save for special purchases."}
+        </DialogDescription>
+      </DialogHeader>
 
-        {pot?.id ? (
-          <EditpotForm pot={pot} setOpen={setOpen} />
-        ) : (
-          <AddNewPotForm setOpen={setOpen} user={user} />
-        )}
-      </DialogContent>
-    );
+      {pot?.id ? (
+        <EditpotForm pot={pot} setOpen={setOpen} />
+      ) : (
+        user && <AddNewPotForm setOpen={setOpen} user={user} />
+      )}
+    </DialogContent>
+  );
 }
 
 export default EditAddPotModal;
