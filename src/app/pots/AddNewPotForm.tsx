@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/select";
 import { colors } from "../../lib/nav";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { AddNewPotAction, getCurrUser } from "@/lib/Actions";
+import { AddNewPotAction } from "@/lib/Actions";
 import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { User } from "@supabase/supabase-js";
