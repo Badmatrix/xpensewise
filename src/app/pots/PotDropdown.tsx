@@ -23,7 +23,7 @@ export function PotDropdown({ pot }: Props) {
               edit budget
             </button>
           </DialogTrigger>
-          <EditAddPotModal pot={pot} setOpen={setOpen} />
+          <EditAddPotModal pot={pot} setOpen={setOpen}  />
         </Dialog>
       </DropdownMenuItem>
 
