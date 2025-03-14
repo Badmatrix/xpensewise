@@ -2,9 +2,11 @@ import React from "react";
 import PotList from "./PotList";
 import EmptyPots from "./EmptyPots";
 import { getPots } from "@/service/apiUser";
+import { getCurrUser } from "@/lib/Actions";
 
 async function PotsData() {
-  const pots = await getPots();
+  const { user } = await getCurrUser();
+  const pots = await getPots(user.id);
   // console.log(pots)
 
   if (!pots.length) return <EmptyPots />;

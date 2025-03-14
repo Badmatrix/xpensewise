@@ -1,9 +1,11 @@
 import { Card } from "@/components/ui/card";
+import { getCurrUser } from "@/lib/Actions";
 import { formatCurrency, getTotal } from "@/lib/helper";
 import { getAllTransactions } from "@/service/apiUser";
 
 async function BalanceSummary() {
-  const transactions = await getAllTransactions();
+  const {user}=await getCurrUser()
+  const transactions = await getAllTransactions(user.id);
 
   const currBalance = getTotal(transactions);
   const income = transactions.reduce((total, item) => {

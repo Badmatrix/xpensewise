@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { loginUser } from "@/lib/Actions";
 import LoadingSpinner from "../LoadingSpinner";
+import toast from "react-hot-toast";
 
 type LoginProps = { email: string; password: string };
 
@@ -27,8 +28,8 @@ export function LoginForm({
     formState: { errors, isSubmitting },
   } = useForm<LoginProps>();
   const onSubmit: SubmitHandler<LoginProps> = async ({ email, password }) => {
-     await loginUser(email, password);
-    
+    const res = await loginUser(email, password);
+    if (res) toast.error(res);
   };
 
   return (
@@ -42,67 +43,69 @@ export function LoginForm({
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="flex flex-col gap-6">
-              <div className="grid gap-2">
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  type="email"
-                  placeholder="mail@example.com"
-                  {...register("email", {
-                    required: "enter your email",
-                    pattern: {
-                      value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
-                      message: "enter a valid email address",
-                    },
-                  })}
-                />
-                {errors && (
-                  <span className="text-xs italic text-secondary-red first-letter:capitalize">
-                    {errors?.email?.message}
-                  </span>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <div className="flex items-center">
-                  <Label htmlFor="password">Password</Label>
-                  <Link
-                    href="#"
-                    className="ml-auto inline-block text-xs underline-offset-4 hover:underline sm:text-sm"
-                  >
-                    Forgot your password?
-                  </Link>
+            <fieldset disabled={isSubmitting}>
+              <div className="flex flex-col gap-6">
+                <div className="grid gap-2">
+                  <Label htmlFor="email">Email</Label>
+                  <Input
+                    type="email"
+                    placeholder="mail@example.com"
+                    {...register("email", {
+                      required: "enter your email",
+                      pattern: {
+                        value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,}$/,
+                        message: "enter a valid email address",
+                      },
+                    })}
+                  />
+                  {errors && (
+                    <span className="text-xs italic text-secondary-red first-letter:capitalize">
+                      {errors?.email?.message}
+                    </span>
+                  )}
                 </div>
-                <Input
-                  type="password"
-                  {...register("password", {
-                    required: "enter password",
-                    pattern: {
-                      value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/,
-                      message: "enter a valid password ",
-                    },
-                  })}
-                />
-                {errors && (
-                  <span className="text-xs italic text-secondary-red first-letter:capitalize">
-                    {errors?.password?.message}
-                  </span>
-                )}
+                <div className="grid gap-2">
+                  <div className="flex items-center">
+                    <Label htmlFor="password">Password</Label>
+                    <Link
+                      href="#"
+                      className="ml-auto inline-block text-xs underline-offset-4 hover:underline sm:text-sm"
+                    >
+                      Forgot your password?
+                    </Link>
+                  </div>
+                  <Input
+                    type="password"
+                    {...register("password", {
+                      required: "enter password",
+                      pattern: {
+                        value: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,16}$/,
+                        message: "enter a valid password ",
+                      },
+                    })}
+                  />
+                  {errors && (
+                    <span className="text-xs italic text-secondary-red first-letter:capitalize">
+                      {errors?.password?.message}
+                    </span>
+                  )}
+                </div>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-grey-900"
+                >
+                  {isSubmitting ? <LoadingSpinner /> : " Login"}
+                </Button>
               </div>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-grey-900"
-              >
-                {isSubmitting ? <LoadingSpinner/> : " Login"}
-              </Button>
-            </div>
 
-            <div className="mt-4 text-center text-sm">
-              Don&apos;t have an account?{" "}
-              <Link href="signup" className="underline underline-offset-4">
-                Sign up
-              </Link>
-            </div>
+              <div className="mt-4 text-center text-sm">
+                Don&apos;t have an account?{" "}
+                <Link href="signup" className="underline underline-offset-4">
+                  Sign up
+                </Link>
+              </div>
+            </fieldset>
           </form>
         </CardContent>
       </Card>

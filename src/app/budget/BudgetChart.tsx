@@ -3,14 +3,16 @@ import { getTransactionByCategory } from "@/service/apiUser";
 import { Budgets, Transaction } from "@/types/types";
 import ChartSummaryList from "./ChartSummaryList";
 import Chart from "./Chart";
+import { getCurrUser } from "@/lib/Actions";
 
 type Props = {
   budgets: Budgets[];
 };
 
 async function BudgetChart({ budgets }: Props) {
+  const {user}=await getCurrUser()
   const res = await Promise.all(
-    budgets.map((item) => getTransactionByCategory(item.category)),
+    budgets.map((item) => getTransactionByCategory(item.category,user.id)),
   );
 
   const transactions: Transaction[] = res.flat();

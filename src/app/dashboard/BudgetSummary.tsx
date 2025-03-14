@@ -5,12 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getBudgets, getTransactionByCategory } from "@/service/apiUser";
 import { IoMdArrowDropright } from "react-icons/io";
 import { Transaction } from "@/types/types";
+import { getCurrUser } from "@/lib/Actions";
 
 async function BudgetSummary() {
-  const budgets = await getBudgets();
+  const {user}=await getCurrUser()
+  const budgets = await getBudgets(user.id);
 
   const res = await Promise.all(
-    budgets.map((item) => getTransactionByCategory(item.category)),
+    budgets.map((item) => getTransactionByCategory(item.category,user.id)),
   );
 
   const transactions: Transaction[] = res.flat();

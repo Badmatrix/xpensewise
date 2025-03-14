@@ -5,10 +5,12 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import AddNewBudget from "./AddNewBudget";
+import { User } from "@supabase/supabase-js";
 type Props = {
   setOpen: (open: boolean) => void;
+  user: User;
 };
-function AddBudgetModal({ setOpen }: Props) {
+function AddBudgetModal({ setOpen, user }: Props) {
   return (
     <DialogContent>
       <DialogHeader>
@@ -22,7 +24,7 @@ function AddBudgetModal({ setOpen }: Props) {
         </DialogDescription>
       </DialogHeader>
 
-      <AddNewBudget setOpen={setOpen} />
+      <AddNewBudget setOpen={setOpen} user={user} />
     </DialogContent>
   );
 }

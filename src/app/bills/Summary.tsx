@@ -1,10 +1,12 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { getCurrUser } from "@/lib/Actions";
 import { formatCurrency, getTotal } from "@/lib/helper";
 import { getRecuringBillsAll } from "@/service/apiUser";
 import { ReceiptText } from "lucide-react";
 
 async function Summary() {
-  const bills = await getRecuringBillsAll();
+  const { user } = await getCurrUser();
+  const bills = await getRecuringBillsAll(user.id);
   const total = Math.abs(getTotal(bills));
   return (
     <div className="col-span-1 space-y-5">

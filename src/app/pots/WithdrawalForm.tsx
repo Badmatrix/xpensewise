@@ -6,6 +6,7 @@ import { updatePotsAction } from "@/lib/Actions";
 import { Pots } from "@/types/types";
 import { DollarSign } from "lucide-react";
 import { SubmitHandler, UseFormReturn } from "react-hook-form";
+import LoadingSpinner from "../LoadingSpinner";
 type Props = {
   pot: Pots;
   setOpen: (open: boolean) => void;
@@ -18,7 +19,7 @@ function WithdrawalForm({ pot, setOpen, form }: Props) {
     handleSubmit,
     register,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = form;
 
   const onSubmit: SubmitHandler<Pots> = async (data) => {
@@ -56,12 +57,14 @@ function WithdrawalForm({ pot, setOpen, form }: Props) {
               value: total,
               message: "you can't withdraw above your savings",
             },
-            min: { value: 1, message: "" },
+            min: { value: 1, message: "enter a valid amount" },
           })}
         />
         <DollarSign className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
       </div>
-      <Button className="capitalize">confirm withdrawal</Button>
+      <Button className="capitalize">
+        {isSubmitting ? <LoadingSpinner /> : "confirm withdrawal"}
+      </Button>
     </form>
   );
 }

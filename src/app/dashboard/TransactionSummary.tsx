@@ -3,9 +3,12 @@ import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { IoMdArrowDropright } from "react-icons/io";
 import TransactionTableSummary from "./TransactionTableSummary";
 import { getAllTransactions} from "@/service/apiUser";
+import { getCurrUser } from "@/lib/Actions";
 
 async function TransactionSummary() {
-  const data = await getAllTransactions();
+  const {user}=await getCurrUser()
+  const data = await getAllTransactions(user.id);
+
 
   return (
     <Card

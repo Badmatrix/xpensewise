@@ -10,6 +10,8 @@ import { getAllTransactions } from "@/service/apiUser";
 import { PAGE_SIZE } from "@/lib/Constant";
 import TransactionHeaderMobile from "./TransactionHeaderMobile";
 import TransactionTableMobile from "./TransactionTableMobile";
+import { getCurrUser } from "@/lib/Actions";
+import { redirect } from "next/navigation";
 
 type searchParamsProps = {
   sortBy?: string;
@@ -21,13 +23,16 @@ type Props = {
   searchParams: Promise<searchParamsProps>;
 };
 async function page({ searchParams }: Props) {
+  const { user } = await getCurrUser();
+    if (!user) redirect("/login");
   const filter = (await searchParams)?.categories || "all-transactions";
   const sort = (await searchParams)?.sortBy || "latest";
   const search = (await searchParams)?.search || "";
   const page = (await searchParams)?.page || 1;
 
-  const length = (await getAllTransactions()).length;
+  const length = (await getAllTransactions(user.id)).length;
   const pageNum = Math.ceil(length / PAGE_SIZE);
+  if (!length) return <div>empty transaction..</div>;
 
   return (
     <div className="w-full space-y-4 overflow-x-hidden">
@@ -45,9 +50,9 @@ async function page({ searchParams }: Props) {
             />
           </Suspense>
         </CardContent>
-        <PageFooter pageNum={pageNum} />
+        <PageFooter pageNum={pageNum} length={length} />
       </Card>
-      <Card className="block w-full space-y-4 border-0 px-3 py-5 shadow-sm sm:hidden md:p-5">
+      <Card className="block w-full space-y-4 border-0 px-3 py-5 shadow-sm sm:hidden ">
         <TransactionHeaderMobile />
         <Suspense fallback={<TableLoading />} key={filter + sort + page}>
           <TransactionTableMobile
@@ -57,7 +62,7 @@ async function page({ searchParams }: Props) {
             page={page}
           />
         </Suspense>
-        <PageFooter pageNum={pageNum} />
+        <PageFooter pageNum={pageNum} length={length} />
       </Card>
     </div>
   );

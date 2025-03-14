@@ -7,15 +7,16 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from "@/components/ui/pagination";
+import { PAGE_SIZE } from "@/lib/Constant";
 import { generatePageNumbers } from "@/lib/helper";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 import { PiGreaterThan, PiLessThan } from "react-icons/pi";
 
-type Props = { pageNum: number };
+type Props = { pageNum: number; length: number };
 
-function PageFooter({ pageNum }: Props) {
+function PageFooter({ pageNum, length }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -23,6 +24,7 @@ function PageFooter({ pageNum }: Props) {
   let curr = Number(params.get("page")) || 1;
   const isFirstPage = curr === 1;
   const isLastPage = curr === pageNum;
+  const isSinglePage = PAGE_SIZE >= length;
 
   function handleNext() {
     if (isLastPage) return;
@@ -45,8 +47,8 @@ function PageFooter({ pageNum }: Props) {
 
   const pageNumbers = generatePageNumbers(curr, pageNum);
   return (
-    <CardFooter>
-      <Pagination className="">
+    <CardFooter className={`${isFirstPage ? "hidden" : "block"}`}>
+      <Pagination>
         <PaginationContent className="flex w-full justify-between">
           {/* Previous Button */}
           <PaginationItem
@@ -82,7 +84,7 @@ function PageFooter({ pageNum }: Props) {
           {/* Next Button */}
           <PaginationItem
             onClick={handleNext}
-            className={`rounded-md border px-1 py-1 ${isLastPage ? "hidden" : "block"}`}
+            className={`rounded-md border px-1 py-1 ${isLastPage || isSinglePage ? "hidden" : "block"}`}
           >
             <PaginationNext className="hidden cursor-pointer sm:flex" />
             <div className="block sm:hidden">

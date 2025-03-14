@@ -9,24 +9,40 @@ import {
 } from "@/components/ui/select";
 import { colors } from "../../lib/nav";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import { AddNewPotAction } from "@/lib/Actions";
-import { Pots } from "@/types/types";
+import { AddNewPotAction, getCurrUser } from "@/lib/Actions";
 import { useTransition } from "react";
 import { Button } from "@/components/ui/button";
+import { User } from "@supabase/supabase-js";
+import LoadingSpinner from "../LoadingSpinner";
 
 type Props = {
   setOpen: (open: boolean) => void;
+  user: User;
 };
-function AddNewPotForm({ setOpen }: Props) {
+interface IFormInput {
+  user_id: string;
+  id: number;
+  created_at: Date;
+  target: number;
+  theme: string;
+  name: string;
+  total: number;
+}
+function AddNewPotForm({ setOpen, user }: Props) {
+  const { id } = user;
   const {
     register,
     control,
     handleSubmit,
 
     formState: { isSubmitting, errors },
-  } = useForm<Pots>();
+  } = useForm<IFormInput>({
+    defaultValues: {
+      user_id: id,
+    },
+  });
   const {} = useTransition();
-  const onSubmit: SubmitHandler<Pots> = async (data) => {
+  const onSubmit: SubmitHandler<IFormInput> = async (data) => {
     await AddNewPotAction({
       ...data,
       target: Number(data.target),
@@ -40,6 +56,7 @@ function AddNewPotForm({ setOpen }: Props) {
   return (
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <div className="grid gap-2">
+        <input type="hidden" {...register("user_id")} />
         <div className="flex items-center capitalize">
           <Label htmlFor="confirmPassword">pot name</Label>
         </div>
@@ -67,7 +84,6 @@ function AddNewPotForm({ setOpen }: Props) {
           <Label htmlFor="confirmPassword">target</Label>
         </div>
         <Input
-          id="target"
           type="number"
           required
           {...register("target", {
@@ -121,7 +137,7 @@ function AddNewPotForm({ setOpen }: Props) {
         />
       </div>
       <Button className="w-full capitalize" disabled={isSubmitting}>
-        {isSubmitting ? "adding..." : "add pot"}
+        {isSubmitting ? <LoadingSpinner /> : "add pot"}
       </Button>
     </form>
   );

@@ -1,10 +1,15 @@
 import PotsHeader from "./PotsHeader";
 import PotsData from "./PotsData";
+import { getCurrUser } from "@/lib/Actions";
+import { redirect } from "next/navigation";
 
-function page() {
+async function page() {
+  const { user } = await getCurrUser();
+    if (!user) redirect("/login");
+
   return (
     <div>
-      <PotsHeader />
+      <PotsHeader user={user} />
       <PotsData />
     </div>
   );

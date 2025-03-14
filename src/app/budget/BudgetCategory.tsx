@@ -12,13 +12,14 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Budgets } from "@/types/types";
-
+import { getCurrUser } from "@/lib/Actions";
 
 type Props = {
   budget: Budgets;
 };
 async function BudgetCategory({ budget }: Props) {
-  const data = await getTransactionByCategory(budget.category);
+  const { user } = await getCurrUser();
+  const data = await getTransactionByCategory(budget.category, user.id);
   const totalAmounts = getTotal(data);
   const { category, theme, maximum } = budget;
 

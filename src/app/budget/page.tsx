@@ -1,17 +1,20 @@
 import BudgetsCategories from "./BudgetsCategories";
 import { getBudgets } from "@/service/apiUser";
 
-
 import BudgetChart from "./BudgetChart";
 import BudgetHeader from "./BudgetHeader";
 import EmptyBudget from "./EmptyBudget";
+import { getCurrUser } from "@/lib/Actions";
+import { redirect } from "next/navigation";
 
 async function page() {
-  const budgets = await getBudgets();
+  const { user } = await getCurrUser();
+  if (!user) redirect("/login");
+  const budgets = await getBudgets(user.id);
 
   return (
     <div className="w-full space-y-4">
-      <BudgetHeader />
+      <BudgetHeader user={user} />
 
       {!budgets.length ? (
         <EmptyBudget />

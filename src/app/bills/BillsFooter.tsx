@@ -7,11 +7,12 @@ import {
   PaginationPrevious,
   PaginationNext,
 } from "@/components/ui/pagination";
+import { PAGE_SIZE } from "@/lib/Constant";
 import { useSearchParams, usePathname, useRouter } from "next/navigation";
 
-type Props = { pageNum: number };
+type Props = { pageNum: number; length: number };
 
-export default function BillsFooter({ pageNum }: Props) {
+export default function BillsFooter({ pageNum, length }: Props) {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
@@ -20,6 +21,7 @@ export default function BillsFooter({ pageNum }: Props) {
   let curr = Number(params.get("page")) || 1;
   const isFirstPage = curr === 1;
   const isLastPage = curr === pageNum;
+  const isSinglePage = PAGE_SIZE >= length;
 
   async function handleNext() {
     if (isLastPage) return;
@@ -53,7 +55,7 @@ export default function BillsFooter({ pageNum }: Props) {
           </PaginationItem>
           <PaginationItem
             onClick={handleNext}
-            className={`scale-90 rounded-md border md:scale-100 ${isLastPage ? "hidden" : "block"}`}
+            className={`scale-90 rounded-md border md:scale-100 ${isLastPage || isSinglePage ? "hidden" : "block"}`}
           >
             <PaginationNext className="cursor-pointer" />
           </PaginationItem>

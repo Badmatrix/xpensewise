@@ -14,6 +14,7 @@ import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { signupUser } from "@/lib/Actions";
 import LoadingSpinner from "../LoadingSpinner";
+import toast from "react-hot-toast";
 
 type SignUpProps = { email: string; password: string; cPass: string };
 
@@ -29,7 +30,8 @@ export function SignupForm({
     formState: { errors, isSubmitting },
   } = useForm<SignUpProps>();
   const onSubmit: SubmitHandler<SignUpProps> = async ({ email, password }) => {
-    await signupUser(email, password);
+    const res = await signupUser(email, password);
+    if (res) toast.error(res);
   };
 
   return (
@@ -122,7 +124,7 @@ export function SignupForm({
                 disabled={isSubmitting}
                 className="w-full bg-grey-900 capitalize"
               >
-                {isSubmitting ? <LoadingSpinner/> : "create account"}
+                {isSubmitting ? <LoadingSpinner /> : "create account"}
               </Button>
             </div>
             <div className="mt-4 text-center text-sm">

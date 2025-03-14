@@ -5,9 +5,11 @@ import { formatCurrency, getTotal } from "@/lib/helper";
 import { getPots } from "@/service/apiUser";
 import PotListSummary from "./PotListSummary";
 import { PiTipJarLight } from "react-icons/pi";
+import { getCurrUser } from "@/lib/Actions";
 
 async function PotSummary() {
-  const pots = await getPots();
+  const {user}=await getCurrUser()
+  const pots = await getPots(user.id);
   const savings = getTotal(pots);
   const potsDisplay = pots.slice(0, 4);
 

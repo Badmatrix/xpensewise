@@ -7,12 +7,14 @@ import {
 import EditpotForm from "./EditpotForm";
 import { Pots } from "@/types/types";
 import AddNewPotForm from "./AddNewPotForm";
+import { User } from "@supabase/supabase-js";
 
 type Props = {
   pot?: Pots;
+  user:User
   setOpen: (open: boolean) => void;
 };
-function EditAddPotModal({ pot, setOpen }: Props) {
+function EditAddPotModal({ pot, setOpen,user }: Props) {
   return (
     <DialogContent>
       <DialogHeader>
@@ -30,7 +32,7 @@ function EditAddPotModal({ pot, setOpen }: Props) {
       {pot?.id ? (
         <EditpotForm pot={pot} setOpen={setOpen} />
       ) : (
-        <AddNewPotForm setOpen={setOpen} />
+          <AddNewPotForm setOpen={setOpen} user={user} />
       )}
     </DialogContent>
   );

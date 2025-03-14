@@ -1,4 +1,5 @@
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
+import { getCurrUser } from "@/lib/Actions";
 import { PAGE_SIZE } from "@/lib/Constant";
 import {
   getSortedData,
@@ -12,9 +13,11 @@ import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 
 type Props = { filter: string; sort: string; search: string; page: number };
 async function TransactionTableMobile({ filter, sort, search, page }: Props) {
+  const { user } = await getCurrUser();
+
   const start = (page - 1) * PAGE_SIZE;
   const end = start + PAGE_SIZE - 1;
-  const transactions = await getTransactions(start, end);
+  const transactions = await getTransactions(start, end, user.id);
 
   const filteredTransactions =
     filter === "all-transactions"
@@ -33,9 +36,8 @@ async function TransactionTableMobile({ filter, sort, search, page }: Props) {
   );
 
   return (
-      <Table className="w-full">
-          
-      <TableBody>
+    <Table className="w-full">
+      <TableBody className="overflow-x-hidden">
         {searchedTransactions?.map((transaction: Transaction) => (
           <TableRow key={transaction.id}>
             <TableCell>
