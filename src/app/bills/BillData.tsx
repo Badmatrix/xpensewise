@@ -1,3 +1,4 @@
+import { AvatarImage } from "@/components/ui/avatar";
 import { TableBody, TableRow, TableCell } from "@/components/ui/table";
 import { getCurrUser } from "@/lib/Actions";
 import { PAGE_SIZE } from "@/lib/Constant";
@@ -19,19 +20,18 @@ async function BillData({ sort, search, page }: Props) {
   const sortedBills = getSortedData(bills, sort);
   const searchedBy = ["name", "amount"];
   const searchedBills = getSearchedData(sortedBills, searchedBy, search);
-
   return (
     <TableBody className="text-xs md:text-sm">
       {searchedBills.map((bill) => (
         <TableRow key={bill.id}>
           <TableCell className="flex items-center gap-5 text-nowrap text-xs font-semibold sm:text-sm">
             <Avatar>
-              {/* <AvatarImage src="https://github.com/shadcn.png" /> */}
+              <AvatarImage src={bill.avatar} className="rounded-full" />
               <AvatarFallback className="aspect-square rounded-full bg-grey-300/30 px-2 py-3">
                 CN
               </AvatarFallback>
             </Avatar>
-            {bill.name}
+            <span className="capitalize">{bill.name}</span>
           </TableCell>
 
           <TableCell>

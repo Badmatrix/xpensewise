@@ -10,10 +10,11 @@ import {
 import { colors } from "../../lib/nav";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { AddNewPotAction } from "@/lib/Actions";
-import { useTransition } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { User } from "@supabase/supabase-js";
 import LoadingSpinner from "../LoadingSpinner";
+import { getThemes } from "@/service/apiUser";
 
 type Props = {
   setOpen: (open: boolean) => void;
@@ -29,6 +30,14 @@ interface IFormInput {
   total: number;
 }
 function AddNewPotForm({ setOpen, user }: Props) {
+  const [selectedThemes, setSeletedTheme] = useState<null | string[]>([]);
+  useEffect(function () {
+    async function fetchThemes() {
+      const themes = await getThemes("pots");
+      setSeletedTheme(themes?.map((t) => t.theme) || []);
+    }
+    fetchThemes();
+  }, []);
   const { id } = user;
   const {
     register,
@@ -117,6 +126,7 @@ function AddNewPotForm({ setOpen, user }: Props) {
                     value={item.theme}
                     key={item.id}
                     className="flex gap-2 capitalize"
+                    disabled={selectedThemes?.includes(item.theme)}
                   >
                     <div className="flex gap-3">
                       <div
@@ -127,7 +137,13 @@ function AddNewPotForm({ setOpen, user }: Props) {
                           } as React.CSSProperties
                         }
                       ></div>
-                      {item.name}
+                      <div className="flex items-center justify-between gap-6">
+                        <div>{item.name}</div>
+                        <div className="text-xs font-light">
+                          {selectedThemes?.includes(item.theme) &&
+                            "already used"}
+                        </div>
+                      </div>
                     </div>
                   </SelectItem>
                 ))}

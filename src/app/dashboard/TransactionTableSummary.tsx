@@ -1,4 +1,5 @@
 // import { AvatarImage } from "@/components/ui/avatar";
+import { AvatarImage } from "@/components/ui/avatar";
 import { CardContent } from "@/components/ui/card";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { formatCurrency, formatDateFromTimestamp } from "@/lib/helper";
@@ -15,10 +16,10 @@ function TransactionTableSummary({ data }: Props) {
         <TableBody>
           {display.map((item) => (
             <TableRow key={item.id}>
-              <TableCell className="flex items-center gap-2 text-xs sm:text-sm md:gap-5 md:text-base">
+              <TableCell className="flex items-center gap-2 text-xs sm:text-sm md:gap-5 md:text-base capitalize">
                 <Avatar>
-                  {/* <AvatarImage src={item.avatar} /> */}
-                  <AvatarFallback>CN</AvatarFallback>
+                  <AvatarImage className="rounded-full" src={item.avatar} />
+                  <AvatarFallback className="rounded-full">CN</AvatarFallback>
                 </Avatar>
                 {item.name}
               </TableCell>

@@ -14,7 +14,6 @@ async function BudgetChart({ budgets }: Props) {
   const res = await Promise.all(
     budgets.map((item) => getTransactionByCategory(item.category,user.id)),
   );
-
   const transactions: Transaction[] = res.flat();
   const allTransactions = Math.abs(
     transactions.reduce((total, item) => {
@@ -29,6 +28,7 @@ async function BudgetChart({ budgets }: Props) {
     },
     {} as Record<string, number>,
   );
+
   return (
     <section>
       <Card className="w-full p-0 md:p-4 border-0">

@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback } from "@radix-ui/react-avatar";
 import { TableBody, TableRow, TableCell } from "../../components/ui/table";
 import { formatCurrency, formatDateFromTimestamp } from "@/lib/helper";
 import { Transaction } from "@/types/types";
+import { AvatarImage } from "@/components/ui/avatar";
 
 
 type componentProps = {
@@ -13,11 +14,11 @@ function TransactionTableItems({ transactions }: componentProps) {
       {transactions?.map((transaction: Transaction) => (
         <TableRow key={transaction.id}>
           <TableCell className="flex items-center gap-5">
-            <Avatar>
-              {/* <AvatarImage src={transaction.avatar} /> */}
+            <Avatar className="rounded-full">
+              <AvatarImage className="rounded-full" src={transaction.avatar} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            {transaction.name}
+            <span className="capitalize">{transaction.name}</span>
           </TableCell>
           <TableCell className="capitalize">{transaction.category}</TableCell>
           <TableCell>

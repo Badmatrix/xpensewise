@@ -13,6 +13,8 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { updatePotsAction } from "@/lib/Actions";
 import { Button } from "@/components/ui/button";
 import LoadingSpinner from "../LoadingSpinner";
+import { getThemes } from "@/service/apiUser";
+import { useState, useEffect } from "react";
 
 type Props = {
   pot: Pots;
@@ -20,6 +22,14 @@ type Props = {
 };
 
 function EditpotForm({ pot, setOpen }: Props) {
+  const [selectedThemes, setSeletedTheme] = useState<null | string[]>([]);
+  useEffect(function () {
+    async function fetchThemes() {
+      const themes = await getThemes("pots");
+      setSeletedTheme(themes?.map((t) => t.theme) || []);
+    }
+    fetchThemes();
+  }, []);
   const { id, target, theme, total, name } = pot;
   const {
     register,
@@ -55,7 +65,13 @@ function EditpotForm({ pot, setOpen }: Props) {
           <div className="flex items-center capitalize">
             <Label htmlFor="confirmPassword">pot name</Label>
           </div>
-          <Input id="name" type="text" {...register("name")} disabled className="capitalize"/>
+          <Input
+            id="name"
+            type="text"
+            {...register("name")}
+            disabled
+            className="capitalize"
+          />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center capitalize">
@@ -85,7 +101,7 @@ function EditpotForm({ pot, setOpen }: Props) {
             rules={{ required: "theme is required" }}
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger className="">
+                <SelectTrigger>
                   <SelectValue placeholder="Themes" />
                 </SelectTrigger>
                 <SelectContent className="capitalize">
@@ -94,6 +110,7 @@ function EditpotForm({ pot, setOpen }: Props) {
                       value={item.theme}
                       key={item.id}
                       className="flex gap-2 capitalize"
+                      disabled={selectedThemes?.includes(item.theme)}
                     >
                       <div className="flex gap-3">
                         <div
@@ -104,7 +121,13 @@ function EditpotForm({ pot, setOpen }: Props) {
                             } as React.CSSProperties
                           }
                         ></div>
-                        {item.name}
+                        <div className="flex items-center justify-between gap-6">
+                          <div>{item.name}</div>
+                          <div className="text-xs font-light">
+                            {selectedThemes?.includes(item.theme) &&
+                              "already used"}
+                          </div>
+                        </div>
                       </div>
                     </SelectItem>
                   ))}

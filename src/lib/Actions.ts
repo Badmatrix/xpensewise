@@ -6,6 +6,25 @@ import { Budgets, Pots, Transaction } from "@/types/types";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
+export async function addTransactionAction(formData: Transaction) {
+  const { data, error } = await supabase
+    .from("transactions")
+    .insert([formData])
+    .select();
+
+  if (error) throw new Error(error.message);
+  return data;
+}
+export async function updateTransactionAvatar(formData: Transaction) {
+  const { error } = await supabase
+    .from("transactions")
+    .update({ ...formData })
+    .eq("id", formData.id);
+
+  if (error) return error.message;
+  revalidatePath("/transactions");
+
+}
 export async function updateBudgetAction(formData: Budgets) {
   const { error } = await supabase
     .from("budgets")

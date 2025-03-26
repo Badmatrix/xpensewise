@@ -1,6 +1,6 @@
 import { TableRow, TableCell } from "@/components/ui/table";
 import { formatCurrency, formatDateFromTimestamp } from "@/lib/helper";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Transaction } from "@/types/types";
 
 
@@ -13,8 +13,9 @@ function CategoryTable({ item }: Props) {
       <TableCell className="flex items-center gap-2">
         <Avatar>
           <AvatarFallback>BH</AvatarFallback>
+          <AvatarImage className="rounded-full" src={ item.avatar} />
         </Avatar>
-        {item.name}
+        <span className="capitalize">{item.name}</span>
       </TableCell>
       <TableCell>
         <div>{formatCurrency(item.amount)}</div>

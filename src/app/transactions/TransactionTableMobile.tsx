@@ -1,3 +1,4 @@
+import { AvatarImage } from "@/components/ui/avatar";
 import { Table, TableBody, TableCell, TableRow } from "@/components/ui/table";
 import { getCurrUser } from "@/lib/Actions";
 import { PAGE_SIZE } from "@/lib/Constant";
@@ -39,16 +40,19 @@ async function TransactionTableMobile({ filter, sort, search, page }: Props) {
     <Table className="w-full">
       <TableBody className="overflow-x-hidden">
         {searchedTransactions?.map((transaction: Transaction) => (
-          <TableRow key={transaction.id}>
+          <TableRow key={transaction.id} >
             <TableCell>
-              <Avatar>
-                {/* <AvatarImage src={transaction.avatar} /> */}
+              <Avatar className="rounded-full">
+                <AvatarImage
+                  className="rounded-full"
+                  src={transaction.avatar}
+                />
                 <AvatarFallback className="aspect-square rounded-full bg-grey-100 px-2 py-3">
                   CN
                 </AvatarFallback>
               </Avatar>
             </TableCell>
-            <TableCell className="text-nowrap">
+            <TableCell className="text-nowrap capitalize">
               <div className="text-sm font-semibold">{transaction.name}</div>
               <div className="text-xs text-grey-500">
                 {transaction.category}

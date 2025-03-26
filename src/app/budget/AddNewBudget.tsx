@@ -15,6 +15,8 @@ import { AddBudgetAction } from "@/lib/Actions";
 import { User } from "@supabase/supabase-js";
 import LoadingSpinner from "../LoadingSpinner";
 import toast from "react-hot-toast";
+import { useEffect, useState } from "react";
+import { getThemes } from "@/service/apiUser";
 
 interface IFormInput {
   user_id: string;
@@ -27,6 +29,14 @@ type Props = {
   user: User;
 };
 export default function AddNewBudget({ setOpen, user }: Props) {
+  const [selectedThemes, setSeletedTheme] = useState<null | string[]>([]);
+  useEffect(function () {
+    async function fetchThemes() {
+      const themes = await getThemes("budgets");
+      setSeletedTheme(themes?.map((t) => t.theme) || []);
+    }
+    fetchThemes();
+  }, []);
   const { id } = user;
 
   const {
@@ -129,7 +139,12 @@ export default function AddNewBudget({ setOpen, user }: Props) {
                 </SelectTrigger>
                 <SelectContent className="capitalize">
                   {colors.map((item) => (
-                    <SelectItem value={item.theme} key={item.id}>
+                    <SelectItem
+                      value={item.theme}
+                      key={item.id}
+                      disabled={selectedThemes?.includes(item.theme)}
+                      
+                    >
                       <div className="flex gap-3">
                         <div
                           className="h-3 w-3 rounded-full bg-[var(--progress-color)]"
@@ -139,7 +154,13 @@ export default function AddNewBudget({ setOpen, user }: Props) {
                             } as React.CSSProperties
                           }
                         ></div>
-                        {item.name}
+                        <div className="flex items-center justify-between gap-6">
+                          <div>{item.name}</div>
+                          <div className="text-xs font-light">
+                            {selectedThemes?.includes(item.theme) &&
+                              "already used"}
+                          </div>
+                        </div>
                       </div>
                     </SelectItem>
                   ))}

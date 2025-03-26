@@ -24,7 +24,7 @@ type Props = {
 };
 async function page({ searchParams }: Props) {
   const { user } = await getCurrUser();
-    if (!user) redirect("/login");
+  if (!user) redirect("/login");
   const filter = (await searchParams)?.categories || "all-transactions";
   const sort = (await searchParams)?.sortBy || "latest";
   const search = (await searchParams)?.search || "";
@@ -36,7 +36,7 @@ async function page({ searchParams }: Props) {
 
   return (
     <div className="w-full space-y-4 overflow-x-hidden">
-      <Header />
+      <Header user={user} />
 
       <Card className="hidden w-full space-y-4 border-0 px-3 py-5 shadow-sm sm:block md:p-5">
         <TransactionHeader />
@@ -52,7 +52,7 @@ async function page({ searchParams }: Props) {
         </CardContent>
         <PageFooter pageNum={pageNum} length={length} />
       </Card>
-      <Card className="block w-full space-y-4 border-0 px-3 py-5 shadow-sm sm:hidden ">
+      <Card className="block w-full space-y-4 border-0 px-3 py-5 shadow-sm sm:hidden">
         <TransactionHeaderMobile />
         <Suspense fallback={<TableLoading />} key={filter + sort + page}>
           <TransactionTableMobile
