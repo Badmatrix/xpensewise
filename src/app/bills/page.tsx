@@ -2,6 +2,8 @@ import Summary from "./Summary";
 import BillsDisplay from "./BillsDisplay";
 import { getCurrUser } from "@/lib/Actions";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
+import TableLoading from "../transactions/TableLoading";
 type searchParamsProps = {
   sortBy?: string;
   search?: string;
@@ -13,7 +15,6 @@ type Props = {
 async function page({ searchParams }: Props) {
   const { user } = await getCurrUser();
   if (!user) redirect("/login");
-
   const sort = (await searchParams).sortBy || "latest";
   const search = (await searchParams).search || "";
   const page = (await searchParams).page || 1;
@@ -24,6 +25,7 @@ async function page({ searchParams }: Props) {
 
       <main className="grid gap-7 md:grid-cols-3">
         <Summary />
+
         <BillsDisplay sort={sort} search={search} page={page} />
       </main>
     </div>

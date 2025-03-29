@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCurrUser } from "@/lib/Actions";
-import { formatCurrency } from "@/lib/helper";
+import { addDueDate, formatCurrency, setBillStatus } from "@/lib/helper";
 import { getRecuringBillsAll } from "@/service/apiUser";
 import Link from "next/link";
 import { IoMdArrowDropright } from "react-icons/io";
@@ -8,7 +8,10 @@ import { IoMdArrowDropright } from "react-icons/io";
 async function BillSummary() {
   const { user } = await getCurrUser();
   const bill = await getRecuringBillsAll(user.id);
-  // console.log(bill)
+  const transactions = addDueDate(bill);
+  const billStatus = setBillStatus(transactions);
+  // console.log(billStatus);
+  const { paid, upcoming, due } = billStatus;
   return (
     <Card
       className={`border-0 lg:row-span-2 ${!bill.length ? "hidden" : "block"}`}
@@ -29,15 +32,15 @@ async function BillSummary() {
       <CardContent className="space-y-3">
         <Card className="flex items-center justify-between border-0 border-l-4 border-l-secondary-green bg-beige-100 p-3 font-semibold capitalize text-grey-900">
           <h1 className="text-sm font-normal text-grey-500">paid bills</h1>
-          <h3>{formatCurrency(200)}</h3>
-        </Card>
-        <Card className="flex items-center justify-between border-0 border-l-4 border-l-secondary-yellow bg-beige-100 p-3 font-semibold capitalize text-grey-900">
-          <h1 className="text-sm font-normal text-grey-500">total upcoming</h1>
-          <h3>{formatCurrency(300)}</h3>
+          <h3>{formatCurrency(Math.abs(paid.value))}</h3>
         </Card>
         <Card className="flex items-center justify-between border-0 border-l-4 border-l-secondary-cyan bg-beige-100 p-3 font-semibold capitalize text-grey-900">
+          <h1 className="text-sm font-normal text-grey-500">total upcoming</h1>
+          <h3>{formatCurrency(Math.abs(upcoming.value))}</h3>
+        </Card>
+        <Card className="flex items-center justify-between border-0 border-l-4 border-l-secondary-red bg-beige-100 p-3 font-semibold capitalize text-grey-900">
           <h1 className="text-sm font-normal text-grey-500">Due soon</h1>
-          <h3>{formatCurrency(500)}</h3>
+          <h3>{formatCurrency(Math.abs(due.value))}</h3>
         </Card>
       </CardContent>
     </Card>
