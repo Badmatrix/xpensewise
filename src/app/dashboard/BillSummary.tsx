@@ -10,7 +10,6 @@ async function BillSummary() {
   const bill = await getRecuringBillsAll(user.id);
   const transactions = addDueDate(bill);
   const billStatus = setBillStatus(transactions);
-  // console.log(billStatus);
   const { paid, upcoming, due } = billStatus;
   return (
     <Card
