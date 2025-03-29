@@ -22,8 +22,9 @@ interface IFormInput {
   category: string;
   name: string;
   amount: number;
-  recurring: boolean;
+  recurring: string;
   type?: "incoming" | "outgoing";
+  
 }
 function AddTransaction({ setOpen, user }: Props) {
   const { id } = user;
@@ -36,18 +37,27 @@ function AddTransaction({ setOpen, user }: Props) {
   } = useForm<IFormInput>({
     defaultValues: {
       user_id: id,
+      type: "outgoing",
+      recurring: "false"
     },
   });
   const type = watch("type");
-  // console.log(type)
   const isIncome = type === "incoming" ? true : false;
   const onsubmit: SubmitHandler<IFormInput> = async (data) => {
     const newData = isIncome
       ? { ...data, category: "general", amount: +data.amount }
       : { ...data, amount: -data.amount };
     delete newData.type;
-
-    const res = await addTransactionAction({ ...newData, created_at: new Date() });
+    // console.log({
+    //   ...newData,
+    //   created_at: new Date(),
+    //   recurring: JSON.parse(newData.recurring),
+    // });
+    const res = await addTransactionAction({
+      ...newData,
+      created_at: new Date(),
+      recurring: JSON.parse(newData.recurring),
+    });
     if (res)
       await updateTransactionAvatar({
         ...res[0],
@@ -61,7 +71,7 @@ function AddTransaction({ setOpen, user }: Props) {
       <fieldset disabled={isSubmitting} className="space-y-5">
         <input type="hidden" {...register("user_id")} />
         <div className="grid gap-2">
-          <Label>Transaction Category</Label>
+          <Label>Transaction Category </Label>
           <Controller
             name="category"
             control={control}
@@ -81,7 +91,7 @@ function AddTransaction({ setOpen, user }: Props) {
                 <SelectContent className="capitalize">
                   {category.map((item) => (
                     <SelectItem value={item.value} key={item.name}>
-                      {item.name}
+                      {type === "incoming" ? "General" : item.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -167,7 +177,7 @@ function AddTransaction({ setOpen, user }: Props) {
               render={({ field }) => (
                 <Select
                   onValueChange={field.onChange}
-                  //   defaultValue={field.value}
+                  defaultValue={field.value}
                   required
                 >
                   <SelectTrigger className="capitalize">
@@ -182,7 +192,6 @@ function AddTransaction({ setOpen, user }: Props) {
             />
           </div>
         </div>
-
         <Button className="w-full capitalize" disabled={isSubmitting}>
           {isSubmitting ? <LoadingSpinner /> : "add transaction"}
         </Button>
@@ -192,9 +201,3 @@ function AddTransaction({ setOpen, user }: Props) {
 }
 
 export default AddTransaction;
-
-// <Select
-
-//                 >
-
-//             </Select>

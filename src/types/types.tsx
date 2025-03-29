@@ -11,6 +11,9 @@ export interface Transaction {
   amount: number;
   recurring?: boolean;
 }
+export interface ExtendedTransaction extends Transaction {
+  days_remaining: number;
+}
 export interface Budgets {
   id?: number;
   created_at: Date;
